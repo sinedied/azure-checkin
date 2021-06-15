@@ -4,28 +4,50 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  template: `<img src="./assets/azure-fluent.png" alt="Azure Logo" />
-    <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
-      <mat-form-field>
-        <mat-label>Enter event name</mat-label>
-        <input
-          matInput
-          value=""
-          type="text"
-          formControlName="eventName"
-          required
-        />
-      </mat-form-field>
-      <button
-        type="submit"
-        [disabled]="!eventForm.valid"
-        mat-raised-button
-        color="primary"
-      >
-        Go
-      </button>
-    </form> `,
-  styles: [],
+  template: `
+    <section class="main">
+      <img src="./assets/azure-fluent.png" alt="Azure Logo" />
+      <mat-card>
+        <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+          <mat-form-field>
+            <mat-label>Enter event name</mat-label>
+            <input
+              matInput
+              value=""
+              type="text"
+              formControlName="eventName"
+              required
+            />
+          </mat-form-field>
+          <button
+            type="submit"
+            [disabled]="!eventForm.valid"
+            mat-raised-button
+            color="primary"
+          >
+            Go
+          </button>
+        </form>
+      </mat-card>
+    </section>
+  `,
+  styles: [
+    `
+      :host {
+        display: flex;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        background: #0a0e12;
+        /* background: #f0f2f7; */
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+      }
+    `,
+  ],
 })
 export class HomeComponent {
   eventForm = new FormGroup({
