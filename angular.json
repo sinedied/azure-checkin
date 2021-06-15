@@ -106,9 +106,21 @@
           "options": {
             "browserTarget": "azure-cantina:build"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "azure-cantina"
+  "defaultProject": "azure-cantina",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
