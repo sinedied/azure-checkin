@@ -99,7 +99,7 @@ export class EventComponent implements OnInit {
     try {
       this.user = await this.userService.getUserInfo();
       this.event = await this.eventService.getEvent(this.id);
-      this.pass = await this.eventService.getPass(this.id);
+      this.pass = (await this.eventService.getPass(this.id)).pass;
     } catch (err) {
       console.error('Error:', err);
       this.router.navigate(['']);
