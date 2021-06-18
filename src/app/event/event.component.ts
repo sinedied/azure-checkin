@@ -13,7 +13,7 @@ import { UserService } from '../user.service';
       <ng-template #showPass>
         <mat-card>
           <h1>{{ event.name }}</h1>
-          <p>Your Azure pass:</p>
+          <p>Your Azure pass is:</p>
           <h2>
             <code>{{ pass }}</code>
           </h2>
@@ -33,12 +33,13 @@ import { UserService } from '../user.service';
             </li>
             <li>
               Your Microsoft account was NEVER used for another Azure
-              subscription. If you ever activated a Free Azure Trial with this
+              subscription.<br>
+              If you ever activated a Free Azure Trial with this
               account, you won't be able to use the Azure Pass. In that case,
               you need to create a new Microsoft account.
             </li>
           </ul>
-          <mat-card-actions>
+          <mat-card-actions align="end">
             <a
               mat-raised-button
               color="primary"
@@ -69,6 +70,9 @@ import { UserService } from '../user.service';
       }
       .progress {
         margin: 40px;
+      }
+      .mat-card {
+        margin: 0 20px;
       }
     `,
   ],
