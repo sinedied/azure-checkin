@@ -4,6 +4,7 @@ import { Component, Input } from '@angular/core';
   selector: 'app-login',
   template: `
     <mat-card>
+      <h1>{{ eventName }}</h1>
       <p>To get your Azure Pass, please login with your GitHub account.</p>
       <p>If you don't have a GitHub account, you need to create one first.</p>
       <mat-card-actions>
@@ -25,4 +26,5 @@ import { Component, Input } from '@angular/core';
 })
 export class LoginComponent {
   @Input() id: string | null = null;
+  @Input() eventName: string | null = null;
 }

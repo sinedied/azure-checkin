@@ -9,7 +9,11 @@ import { UserService } from '../user.service';
   template: `
     <div *ngIf="loaded; else loading">
       <app-logout *ngIf="this.user"></app-logout>
-      <app-login *ngIf="!this.user; else showPass" [id]="id"></app-login>
+      <app-login
+        *ngIf="!this.user; else showPass"
+        [id]="id"
+        [eventName]="event.name"
+      ></app-login>
       <ng-template #showPass>
         <mat-card>
           <h1>{{ event.name }}</h1>
@@ -33,10 +37,10 @@ import { UserService } from '../user.service';
             </li>
             <li>
               Your Microsoft account was NEVER used for another Azure
-              subscription.<br>
-              If you ever activated a Free Azure Trial with this
-              account, you won't be able to use the Azure Pass. In that case,
-              you need to create a new Microsoft account.
+              subscription.<br />
+              If you ever activated a Free Azure Trial with this account, you
+              won't be able to use the Azure Pass. In that case, you need to
+              create a new Microsoft account.
             </li>
           </ul>
           <mat-card-actions align="end">
@@ -103,7 +107,10 @@ export class EventComponent implements OnInit {
     try {
       this.user = await this.userService.getUserInfo();
       this.event = await this.eventService.getEvent(this.id);
-      this.pass = (await this.eventService.getPass(this.id)).pass;
+
+      if (this.user) {
+        this.pass = (await this.eventService.getPass(this.id)).pass;
+      }
     } catch (err) {
       console.error('Error:', err);
       this.router.navigate(['']);
