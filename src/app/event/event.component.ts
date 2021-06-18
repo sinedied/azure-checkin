@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EventService } from '../event.service';
 import { UserInfo } from '../user-info';
 import { UserService } from '../user.service';
 
@@ -9,7 +10,11 @@ import { UserService } from '../user.service';
     <div *ngIf="loaded; else loading">
       <app-logout *ngIf="this.user"></app-logout>
       <app-login *ngIf="!this.user; else showPass" [id]="id"></app-login>
-      <ng-template #showPass> ID: {{ id }} </ng-template>
+      <ng-template #showPass>
+        ID: {{ id }}
+        {{ event | json }}
+        <p>Your pass: {{ pass }}</p>
+      </ng-template>
     </div>
     <ng-template #loading>
       <mat-progress-bar
@@ -37,11 +42,14 @@ export class EventComponent implements OnInit {
   loaded = false;
   id: string | null = null;
   user: UserInfo | null = null;
+  event: any = null;
+  pass: any = null;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private eventService: EventService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -50,9 +58,19 @@ export class EventComponent implements OnInit {
     if (!this.id) {
       console.warn('No event ID provided!');
       this.router.navigate(['']);
+      return;
     }
 
     this.user = await this.userService.getUserInfo();
+    this.event = await this.eventService.getEvent(this.id);
+
+    if (!this.event) {
+      console.warn('Event does not exist!');
+      this.router.navigate(['']);
+      return;
+    }
+
+    this.pass = this.eventService.getPass(this.id);
     this.loaded = true;
   }
 }
