@@ -11,9 +11,44 @@ import { UserService } from '../user.service';
       <app-logout *ngIf="this.user"></app-logout>
       <app-login *ngIf="!this.user; else showPass" [id]="id"></app-login>
       <ng-template #showPass>
-        ID: {{ id }}
-        {{ event | json }}
-        <p>Your pass: {{ pass }}</p>
+        <mat-card>
+          <h1>{{ event.name }}</h1>
+          <p>Your Azure pass:</p>
+          <h2>
+            <code>{{ pass }}</code>
+          </h2>
+          <p>
+            To create an Azure account with your pass, first make sure that:
+          </p>
+          <ul>
+            <li>
+              You have a Microsoft account (formerly Live). You can create one
+              on
+              <a
+                href="http://account.microsoft.com?WT.mc_id=javascript-32417-yolasors"
+                target="blank"
+              >
+                account.microsoft.com
+              </a>
+            </li>
+            <li>
+              Your Microsoft account was NEVER used for another Azure
+              subscription. If you ever activated a Free Azure Trial with this
+              account, you won't be able to use the Azure Pass. In that case,
+              you need to create a new Microsoft account.
+            </li>
+          </ul>
+          <mat-card-actions>
+            <a
+              mat-raised-button
+              color="primary"
+              target="_blank"
+              href="https://www.microsoftazurepass.com/?WT.mc_id=javascript-32417-yolasors"
+            >
+              Create Azure account with your Pass
+            </a>
+          </mat-card-actions>
+        </mat-card>
       </ng-template>
     </div>
     <ng-template #loading>
