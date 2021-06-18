@@ -23,7 +23,7 @@ export class EventService {
 
   }
 
-  async getPass(eventId: string): Promise<string> {
+  async getPass(eventId: string) {
     const url = `/api/events/${encodeURIComponent(eventId)}/pass`;
     const response = await fetch(url);
     return await response.json();

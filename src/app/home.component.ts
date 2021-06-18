@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { EventService } from './event.service';
 
 @Component({
   selector: 'app-home',
@@ -10,23 +11,25 @@ import { Router } from '@angular/router';
       <mat-card>
         <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
           <mat-form-field>
-            <mat-label>Enter event name</mat-label>
+            <mat-label>Enter event code</mat-label>
             <input
               matInput
               value=""
               type="text"
-              formControlName="eventName"
+              formControlName="eventId"
               required
             />
           </mat-form-field>
+          <p class="error" *ngIf="error">{{ error }}</p>
           <button
             type="submit"
-            [disabled]="!eventForm.valid"
+            [disabled]="!eventForm.valid || loading"
             mat-raised-button
             color="primary"
           >
             Go
           </button>
+          <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
         </form>
       </mat-card>
     </section>
@@ -46,19 +49,35 @@ import { Router } from '@angular/router';
         flex-direction: column;
         background: #fff;
       }
+      .error {
+        color: red;
+      }
     `,
   ],
 })
 export class HomeComponent {
+  loading = false;
+  error: string | null = null;
   eventForm = new FormGroup({
-    eventName: new FormControl(''),
+    eventId: new FormControl(''),
   });
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private eventService: EventService) {}
 
-  onSubmit() {
-    const eventName = this.eventForm.controls.eventName.value;
-    console.log(eventName);
-    this.router.navigate(['/event/' + encodeURIComponent(eventName)]);
+  async onSubmit() {
+    const eventId = this.eventForm.controls.eventId.value;
+
+    try {
+      this.loading = true;
+      this.error = null;
+      const event = await this.eventService.getEvent(eventId);
+      this.loading = false;
+    } catch (err) {
+      console.warn(`Event with ID ${eventId} does not exist!`);
+      this.error = "Invalid event code.";
+      return;
+    }
+
+    this.router.navigate(['/event/' + encodeURIComponent(eventId)]);
   }
 }
