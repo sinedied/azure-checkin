@@ -24,6 +24,14 @@
       "direction": "in",
       "Id": "{eventId}",
       "PartitionKey": "{eventId}"
+    },
+    {
+      "type": "cosmosDB",
+      "name": "updatedEvent",
+      "databaseName": "cantinadb",
+      "collectionName": "events",
+      "connectionStringSetting": "CosmosDBConnectionString",
+      "direction": "out"
     }
   ]
 }
