@@ -61,16 +61,16 @@ export class EventComponent implements OnInit {
       return;
     }
 
-    this.user = await this.userService.getUserInfo();
-    this.event = await this.eventService.getEvent(this.id);
-
-    if (!this.event) {
-      console.warn('Event does not exist!');
+    try {
+      this.user = await this.userService.getUserInfo();
+      this.event = await this.eventService.getEvent(this.id);
+      this.pass = await this.eventService.getPass(this.id);
+    } catch (err) {
+      console.error('Error:', err);
       this.router.navigate(['']);
       return;
     }
 
-    this.pass = this.eventService.getPass(this.id);
     this.loaded = true;
   }
 }
