@@ -75,6 +75,7 @@ export class HomeComponent {
     } catch (err) {
       console.warn(`Event with ID ${eventId} does not exist!`);
       this.error = "Invalid event code.";
+      this.loading = false;
       return;
     }
 
