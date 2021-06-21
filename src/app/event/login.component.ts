@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
       <h1>{{ eventName }}</h1>
       <p>To get your Azure Pass, please login with your GitHub account.</p>
       <p>If you don't have a GitHub account, you need to create one first.</p>
-      <mat-card-actions align="right">
+      <mat-card-actions align="end">
         <a mat-button href="https://github.com/join" target="_blank">
           Create GitHub account
         </a>
