@@ -1,3 +1,5 @@
+import crypto from 'crypto';
+
 module.exports = async function (context, req, event, client) {
   const eventId = req.params.eventId;
 
@@ -19,16 +21,17 @@ module.exports = async function (context, req, event, client) {
   }
   
   const { userId } = userInfo;
+  const hash = crypto.createHash('sha256').update(userId).digest('base64')
 
-  context.log(`Requesting pass for user ${userId}`);
+  context.log(`Requesting pass for user hash ${hash}`);
 
   // Get user pass, if not assigned then assign it and return it
   let userPass = Object.keys(event.passes).find(
-    (pass) => event.passes[pass] === userId
+    (pass) => event.passes[pass] === hash
   );
 
   if (!userPass) {
-    context.log(`User ${userId} has not yet a pass attributed`);
+    context.log(`User hash ${hash} has not yet a pass attributed`);
 
     userPass = Object.keys(event.passes).find(
       (pass) => event.passes[pass] === null
@@ -39,9 +42,9 @@ module.exports = async function (context, req, event, client) {
       return { status: 404, body: 'Not found' };
     }
 
-    event.passes[userPass] = userId;
+    event.passes[userPass] = hash;
 
-    context.log(`Attributed pass ${userPass} to user ${userId}`);
+    context.log(`Attributed pass ${userPass} to user hash ${hash}`);
     context.bindings.updatedEvent = JSON.stringify(event);
 
     // try {

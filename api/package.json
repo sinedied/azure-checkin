@@ -4,7 +4,5 @@
   "description": "",
   "scripts": {
     "start": "func start"
-  },
-  "dependencies": {},
-  "devDependencies": {}
+  }
 }
