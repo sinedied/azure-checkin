@@ -1,9 +1,9 @@
-import crypto from 'crypto';
+const crypto = require('crypto');
 
 module.exports = async function (context, req, event, client) {
   const eventId = req.params.eventId;
 
-  context.log({client})
+  context.log({ client });
 
   if (!eventId || !event) {
     context.log(`Event not found, id=${eventId}`);
@@ -19,9 +19,9 @@ module.exports = async function (context, req, event, client) {
   if (!userInfo || !userInfo.userId) {
     return { status: 401, body: 'Unauthorized' };
   }
-  
+
   const { userId } = userInfo;
-  const hash = crypto.createHash('sha256').update(userId).digest('base64')
+  const hash = crypto.createHash('sha256').update(userId).digest('base64');
 
   context.log(`Requesting pass for user hash ${hash}`);
 
