@@ -7,4 +7,4 @@ http://localhost:7071/api/events/not123
 ###
 
 http://localhost:7071/api/events/swc210622/pass
-
+x-ms-client-principal: eyB1c2VySWQ6ICcxMjMgJ30=
