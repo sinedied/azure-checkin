@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const { getUserInfo } = require('../helpers/auth');
 
 module.exports = async function (context, req, event, client) {
   const eventId = req.params.eventId;
@@ -10,11 +11,7 @@ module.exports = async function (context, req, event, client) {
     return { status: 404, body: 'Not found' };
   }
 
-  const token = Buffer.from(
-    req.headers['x-ms-client-principal'],
-    'base64'
-  ).toString('ascii');
-  const userInfo = (token && JSON.parse(token)) || null;
+  const userInfo = getUserInfo(req);
 
   if (!userInfo || !userInfo.userId) {
     return { status: 401, body: 'Unauthorized' };

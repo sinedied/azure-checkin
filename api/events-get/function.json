@@ -1,0 +1,27 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get"
+      ],
+      "route": "events"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "$return"
+    },
+    {
+      "type": "cosmosDB",
+      "name": "event",
+      "databaseName": "cantinadb",
+      "collectionName": "events",
+      "connectionStringSetting": "CosmosDBConnectionString",
+      "direction": "in"
+    }
+  ]
+}

@@ -1,3 +1,5 @@
+const { createEvent } = require('../helpers/event');
+
 module.exports = async function (context, req, event) {
   const eventId = req.params.eventId;
 
@@ -6,16 +8,7 @@ module.exports = async function (context, req, event) {
     return { status: 404, body: 'Not found' };
   }
 
-  context.log(event);
-
   return {
-    body: {
-      id: event.id,
-      name: event.name,
-      date: event.date,
-  
-      // if (user.role === 'admin')
-      // passes: passesMap,
-    }
-  };
+    body: createEvent(event),
+  }
 };
