@@ -28,14 +28,14 @@ import { Component, Input } from '@angular/core';
       <ng-container matColumnDef="startDate">
         <th mat-header-cell *matHeaderCellDef>Start Date</th>
         <td mat-cell *matCellDef="let event">
-          {{ event.date | localDate }}
+          {{ event.startDate | localDate }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="endDate">
         <th mat-header-cell *matHeaderCellDef class="md">End Date</th>
         <td mat-cell *matCellDef="let event" class="md">
-          {{ event.date | localDate }}
+          {{ event.endDate | localDate }}
         </td>
       </ng-container>
 
