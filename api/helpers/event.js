@@ -1,11 +1,12 @@
 const createEvent = (data, withPasses = false) => ({
   id: data.id,
   name: data.name,
-  date: data.date,
+  startDate: data.startDate,
+  endDate: data.endDate,
   owner: data.owner,
   usedPasses: Object.values(data.passes).filter(hash => hash).length,
   totalPasses: Object.values(data.passes).length,
-  ...(withPasses && data.passes || []),
+  ...(withPasses && { passes: data.passes } || {}),
 });
 
 module.exports = {

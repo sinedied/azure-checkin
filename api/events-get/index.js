@@ -12,7 +12,8 @@ module.exports = async function (context, req, events) {
 
   const userInfo = getUserInfo(req);
   const { userDetails } = userInfo || {};
-  const role = userDetails && administrators[userDetails.toLowerCase()] || 'user';
+  const role =
+    (userDetails && administrators[userDetails.toLowerCase()]) || 'user';
 
   if (role === 'user') {
     return { status: 401, body: 'Unauthorized' };
@@ -24,9 +25,9 @@ module.exports = async function (context, req, events) {
         role === 'superadmin' ||
         (role === 'admin' && event.owner === userDetails)
     )
-    .map(createEvent);
+    .map((event) => createEvent(event));
 
   return {
-    body: viewableEvents
+    body: viewableEvents,
   };
 };
