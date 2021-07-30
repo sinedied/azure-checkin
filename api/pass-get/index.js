@@ -36,7 +36,7 @@ module.exports = async function (context, req, event, client) {
 
     if (!userPass) {
       context.log(`No free pass available`);
-      return { status: 404, body: 'Not found' };
+      return { status: 422, body: 'No more pass available' };
     }
 
     event.passes[userPass] = hash;

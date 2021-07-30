@@ -11,9 +11,20 @@ import { HomeComponent } from './home.component';
 import { MaterialModule } from './material.module';
 import { LoginComponent } from './event/login.component';
 import { LogoutComponent } from './event/logout.component';
+import { PassCardComponent } from './event/pass-card.component';
+import { NoPassCardComponent } from './event/no-pass-card.component';
 
 @NgModule({
-  declarations: [AppComponent, AdminComponent, EventComponent, HomeComponent, LoginComponent, LogoutComponent],
+  declarations: [
+    AppComponent,
+    AdminComponent,
+    EventComponent,
+    HomeComponent,
+    LoginComponent,
+    LogoutComponent,
+    PassCardComponent,
+    NoPassCardComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

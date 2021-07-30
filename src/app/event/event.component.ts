@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EventService } from '../event.service';
-import { UserInfo } from '../user-info';
-import { UserService } from '../user.service';
+import { EventService } from '../shared/event.service';
+import { UserInfo } from '../shared/user-info';
+import { UserService } from '../shared/user.service';
 
 @Component({
   selector: 'app-event',
@@ -15,45 +15,14 @@ import { UserService } from '../user.service';
         [eventName]="event.name"
       ></app-login>
       <ng-template #showPass>
-        <mat-card>
-          <h1>{{ event.name }}</h1>
-          <p>Your Azure pass is:</p>
-          <h2>
-            <code>{{ pass }}</code>
-          </h2>
-          <p>
-            To create an Azure account with your pass, first make sure that:
-          </p>
-          <ul>
-            <li>
-              You have a Microsoft account (formerly Live). You can create one
-              on
-              <a
-                href="http://account.microsoft.com?WT.mc_id=javascript-32417-yolasors"
-                target="blank"
-              >
-                account.microsoft.com
-              </a>
-            </li>
-            <li>
-              Your Microsoft account was NEVER used for another Azure
-              subscription.<br />
-              If you ever activated a Free Azure Trial with this account, you
-              won't be able to use the Azure Pass. In that case, you need to
-              create a new Microsoft account.
-            </li>
-          </ul>
-          <mat-card-actions align="end">
-            <a
-              mat-raised-button
-              color="primary"
-              target="_blank"
-              href="https://www.microsoftazurepass.com/?WT.mc_id=javascript-32417-yolasors"
-            >
-              Create Azure account with your Pass
-            </a>
-          </mat-card-actions>
-        </mat-card>
+        <app-pass-card
+          *ngIf="pass; else noPass"
+          [pass]="pass"
+          [eventName]="event.name"
+        ></app-pass-card>
+        <ng-template #noPass>
+          <app-no-pass-card [eventName]="event.name"></app-no-pass-card>
+        </ng-template>
       </ng-template>
     </div>
     <ng-template #loading>
@@ -109,14 +78,27 @@ export class EventComponent implements OnInit {
       this.event = await this.eventService.getEvent(this.id);
 
       if (this.user) {
-        this.pass = (await this.eventService.getPass(this.id)).pass;
+        await this.getPass();
       }
-    } catch (err) {
-      console.error('Error:', err);
+    } catch (error) {
+      console.error('Error:', error);
       this.router.navigate(['']);
       return;
     }
 
     this.loaded = true;
+  }
+
+  private async getPass(): Promise<void> {
+    try {
+      this.pass = (await this.eventService.getPass(this.id!)).pass;
+    } catch (error) {
+      if (error.response?.status === 422) {
+        // no more passes available
+        this.pass = null;
+      } else {
+        throw error;
+      }
+    }
   }
 }

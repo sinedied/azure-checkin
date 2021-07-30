@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { EventService } from './event.service';
+import { EventService } from './shared/event.service';
 
 @Component({
   selector: 'app-home',
@@ -70,9 +70,9 @@ export class HomeComponent {
     try {
       this.loading = true;
       this.error = null;
-      const event = await this.eventService.getEvent(eventId);
+      await this.eventService.getEvent(eventId);
       this.loading = false;
-    } catch (err) {
+    } catch (error) {
       console.warn(`Event with ID ${eventId} does not exist!`);
       this.error = "Invalid event code.";
       this.loading = false;
