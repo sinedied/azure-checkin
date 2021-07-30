@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpError } from './http-error';
 
 @Injectable({
   providedIn: 'root'
@@ -6,13 +7,11 @@ import { Injectable } from '@angular/core';
 export class EventService {
 
   async getEvents() {
-    const response = await fetch('/api/events/');
-    return await response.json();
+    return this.fetch('/api/events');
   }
 
   async getEvent(eventId: string) {
-    const response = await fetch(`/api/events/${eventId}`);
-    return await response.json();
+    return this.fetch(`/api/events/${eventId}`);
   }
 
   async createEvent() {
@@ -25,7 +24,16 @@ export class EventService {
 
   async getPass(eventId: string) {
     const url = `/api/events/${encodeURIComponent(eventId)}/pass`;
-    const response = await fetch(url);
+    return this.fetch(url);
+  }
+
+  private async fetch(options: RequestInfo, init?: RequestInit) {
+    const response = await fetch(options, init);
+
+    if (!response.ok) {
+      throw new HttpError(response);
+    }
+
     return await response.json();
   }
 }
