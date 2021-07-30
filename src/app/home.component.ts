@@ -7,7 +7,11 @@ import { EventService } from './shared/event.service';
   selector: 'app-home',
   template: `
     <section class="main">
-      <img src="./assets/azure-fluent.png" alt="Azure Logo" />
+      <img
+        src="./assets/azure-fluent.png"
+        alt="Azure Logo"
+        (dblclick)="goToAdmin()"
+      />
       <mat-card>
         <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
           <mat-form-field>
@@ -29,7 +33,10 @@ import { EventService } from './shared/event.service';
           >
             Go
           </button>
-          <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+          <mat-progress-bar
+            *ngIf="loading"
+            mode="indeterminate"
+          ></mat-progress-bar>
         </form>
       </mat-card>
     </section>
@@ -74,11 +81,15 @@ export class HomeComponent {
       this.loading = false;
     } catch (error) {
       console.warn(`Event with ID ${eventId} does not exist!`);
-      this.error = "Invalid event code.";
+      this.error = 'Invalid event code.';
       this.loading = false;
       return;
     }
 
     this.router.navigate(['/event/' + encodeURIComponent(eventId)]);
+  }
+
+  goToAdmin() {
+    this.router.navigate(['/admin']);
   }
 }

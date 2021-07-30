@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
   template: `
     <a
       mat-icon-button
-      href="/.auth/logout?post_logout_redirect_uri=/event/{{ id }}"
+      href="/.auth/logout?post_logout_redirect_uri={{ redirectUrl }}"
       aria-label="Logout"
       matTooltip="Logout"
     >
@@ -23,5 +23,5 @@ import { Component, Input } from '@angular/core';
   ],
 })
 export class LogoutComponent {
-  @Input() id: string | null = null;
+  @Input() redirectUrl: string | null = '/';
 }

@@ -9,10 +9,12 @@ import { AdminComponent } from './admin/admin.component';
 import { EventComponent } from './event/event.component';
 import { HomeComponent } from './home.component';
 import { MaterialModule } from './material.module';
-import { LoginComponent } from './event/login.component';
-import { LogoutComponent } from './event/logout.component';
+import { LoginComponent } from './shared/login.component';
+import { LogoutComponent } from './shared/logout.component';
 import { PassCardComponent } from './event/pass-card.component';
 import { NoPassCardComponent } from './event/no-pass-card.component';
+import { EventListComponent } from './admin/event-list.component';
+import { LocalDatePipe } from './shared/local-date.pipe';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { NoPassCardComponent } from './event/no-pass-card.component';
     LogoutComponent,
     PassCardComponent,
     NoPassCardComponent,
+    EventListComponent,
+    LocalDatePipe,
   ],
   imports: [
     BrowserModule,
