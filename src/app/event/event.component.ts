@@ -8,7 +8,10 @@ import { UserService } from '../shared/user.service';
   selector: 'app-event',
   template: `
     <div *ngIf="loaded; else loading">
-      <app-logout *ngIf="this.user"></app-logout>
+      <app-logout
+        *ngIf="this.user"
+        redirectUrl="/event/{{ event.id }}"
+      ></app-logout>
       <app-login
         *ngIf="!this.user; else showPass"
         [id]="id"
@@ -18,7 +21,8 @@ import { UserService } from '../shared/user.service';
         <app-pass-card
           *ngIf="pass; else noPass"
           [pass]="pass"
-          [eventName]="event.name"
+          [userName]="user?.userDetails || ''"
+          [event]="event"
         ></app-pass-card>
         <ng-template #noPass>
           <app-no-pass-card [eventName]="event.name"></app-no-pass-card>
@@ -40,6 +44,7 @@ import { UserService } from '../shared/user.service';
         justify-content: center;
         align-items: center;
         background: #f0f2f7;
+        background-image: radial-gradient(circle at center, #999 0%, #444 100%);
       }
       .progress {
         margin: 40px;

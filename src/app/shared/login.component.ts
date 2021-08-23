@@ -4,9 +4,15 @@ import { Component, Input } from '@angular/core';
   selector: 'app-login',
   template: `
     <mat-card>
-      <h1>{{ eventName || 'Admin login' }}</h1>
+      <h1 class="text-ellipsis">
+        <mat-icon class="material-icons-outlined" inline>cloud</mat-icon>
+        {{ eventName || 'Admin login' }}
+      </h1>
       <ng-container *ngIf="id; else adminLogin">
-        <p>To get your Azure Pass, please login with your GitHub account.</p>
+        <p>
+          To get your Azure Boarding Pass, please login with your GitHub
+          account.
+        </p>
         <p>If you don't have a GitHub account, you need to create one first.</p>
       </ng-container>
       <ng-template #adminLogin>
@@ -19,7 +25,9 @@ import { Component, Input } from '@angular/core';
         <a
           mat-raised-button
           color="primary"
-          href="/.auth/login/github?post_login_redirect_uri={{ getRedirectUrl() }}"
+          href="/.auth/login/github?post_login_redirect_uri={{
+            getRedirectUrl()
+          }}"
         >
           <mat-icon aria-hidden="true">login</mat-icon>
           Login with GitHub
@@ -27,7 +35,18 @@ import { Component, Input } from '@angular/core';
       </mat-card-actions>
     </mat-card>
   `,
-  styles: [],
+  styles: [
+    `
+    .mat-card {
+      max-width: calc(100vw - 20px);
+      box-sizing: border-box;
+    }
+    .mat-icon {
+      vertical-align: bottom;
+      margin-right: .5rem;
+    }
+    `
+  ],
 })
 export class LoginComponent {
   @Input() id: string | null = null;

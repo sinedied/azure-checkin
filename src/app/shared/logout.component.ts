@@ -5,6 +5,7 @@ import { Component, Input } from '@angular/core';
   template: `
     <a
       mat-icon-button
+      color="accent"
       href="/.auth/logout?post_logout_redirect_uri={{ redirectUrl }}"
       aria-label="Logout"
       matTooltip="Logout"
