@@ -116,10 +116,10 @@ import { Event } from '../shared/event';
       }
 
       .button {
-        /* color: $color;
-        background: #fff; */
-        color: #fff;
+        /* color: $color; */
+        /* background: #fff; */
         /* border: 1px solid #fff; */
+        color: #fff;
         border: 1px dashed #fff;
         border-radius: 4px;
         text-decoration: none;

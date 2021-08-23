@@ -34,6 +34,8 @@ import { UserService } from '../shared/user.service';
   `,
   styles: [
     `
+      $primary: #039be5;
+
       :host {
         display: flex;
         height: 100%;
@@ -55,7 +57,7 @@ import { UserService } from '../shared/user.service';
         margin: 40px;
       }
       .mat-toolbar {
-        background: linear-gradient(to right, lighten(#039be5, 10%), #039be5);
+        background: linear-gradient(to right, lighten($primary, 10%), $primary);
       }
       .spacer {
         flex: 1 1 auto;
