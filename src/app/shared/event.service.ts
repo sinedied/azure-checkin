@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpError } from './http-error';
+import { Event } from './event';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
 
-  async getEvents() {
+  async getEvents(): Promise<Event[]> {
     return this.fetch('/api/events');
   }
 
-  async getEvent(eventId: string) {
+  async getEvent(eventId: string): Promise<Event> {
     return this.fetch(`/api/events/${eventId}`);
   }
 
