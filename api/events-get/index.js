@@ -1,6 +1,5 @@
-const { getUserInfo } = require('../helpers/auth');
+const { getUserInfo, getRole } = require('../helpers/auth');
 const { createEvent } = require('../helpers/event');
-const administrators = require('../administrators.json');
 
 module.exports = async function (context, req, events) {
   if (!events) {
@@ -12,8 +11,7 @@ module.exports = async function (context, req, events) {
 
   const userInfo = getUserInfo(req);
   const { userDetails } = userInfo || {};
-  const role =
-    (userDetails && administrators[userDetails.toLowerCase()]) || 'user';
+  const role = getRole(userDetails);
 
   if (role === 'user') {
     return { status: 401, body: 'Unauthorized' };
