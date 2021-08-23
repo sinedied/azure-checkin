@@ -60,6 +60,7 @@ import { Event } from '../shared/event';
           alt="barcode"
           aria-hidden
         />
+        <div></div>
         <a
           matRipple
           class="button"
@@ -417,26 +418,13 @@ import { Event } from '../shared/event';
         z-index: 1;
       }
 
-      .hide-xs,
-      .hide-sm {
-        display: none;
-      }
-
-      @media screen and (min-width: 481px) {
-        .hide-xs {
-          display: initial;
-        }
-
+      @media screen and (min-width: 480px) {
         .pass-text {
           font-size: 1.4em;
         }
       }
 
       @media screen and (min-width: 768px) {
-        .hide-sm {
-          display: initial;
-        }
-
         .pass-text {
           font-size: 2.4em;
         }

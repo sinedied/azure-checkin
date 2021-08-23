@@ -43,7 +43,7 @@ import { UserService } from '../shared/user.service';
         height: 100%;
         justify-content: center;
         align-items: center;
-        background: #f0f2f7;
+        background: #999;
         background-image: radial-gradient(circle at center, #999 0%, #444 100%);
       }
       .progress {
