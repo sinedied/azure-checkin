@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { environment } from '../environments/environment';
 import { EventService } from './shared/event.service';
 
 @Component({
@@ -45,7 +44,7 @@ import { EventService } from './shared/event.service';
           ></mat-progress-bar>
         </form>
       </mat-card>
-      <p class="version">{{ version }}</p>
+      <app-version></app-version>
     </section>
   `,
   styles: [
@@ -69,19 +68,10 @@ import { EventService } from './shared/event.service';
       .error {
         color: red;
       }
-      .version {
-        opacity: 0.3;
-        margin-top: 10px;
-        text-align: center;
-        font-size: 0.8em;
-        color: #fff;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-      }
     `,
   ],
 })
 export class HomeComponent {
-  version: string = environment.version;
   loading = false;
   error: string | null = null;
   eventForm = new FormGroup({
