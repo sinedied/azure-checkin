@@ -39,7 +39,7 @@ import { Event } from '../shared/event';
             </div>
             <div class="hide-sm">
               <div class="label">Seat</div>
-              <div class="value">10A</div>
+              <div class="value">{{ seat() }}</div>
             </div>
             <div class="hide-sm">
               <div class="label">Gate</div>
@@ -47,7 +47,7 @@ import { Event } from '../shared/event';
             </div>
             <div>
               <div class="label">Boarding time</div>
-              <div class="value">22/07/2021</div>
+              <div class="value">{{ event.startDate | date }}</div>
             </div>
             <div></div>
           </div>
@@ -449,5 +449,22 @@ export class PassCardComponent {
 
   gate(): string {
     return this.event.id.charAt(2).toUpperCase();
+  }
+
+  seat(): string {
+    const rand = this.pseudoRandom(this.pass);
+    const number = Math.floor((this.event.totalPasses / 3) * rand);
+    const row = 'FEDCBA'.substr(Math.floor(rand * 6), 1);
+    return number + row;
+  }
+
+  private pseudoRandom(seed: string) {
+    const n = Array.from(seed).reduce(
+      (res, char, i) => res + char.charCodeAt(0) * Math.pow(10, i),
+      0
+    );
+    console.log(n);
+    let x = Math.sin(n) * 10000;
+    return x - Math.floor(x);
   }
 }
