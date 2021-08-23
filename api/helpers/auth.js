@@ -1,3 +1,5 @@
+const administrators = require('../administrators.json');
+
 function getUserInfo(req) {
   const token = Buffer.from(
     req.headers['x-ms-client-principal'],
@@ -10,6 +12,11 @@ function getUserInfo(req) {
   }
 }
 
+function getRole(userDetails) {
+  return (userDetails && administrators[userDetails.toLowerCase()]) || 'user';
+}
+
 module.exports = {
   getUserInfo,
+  getRole,
 };
