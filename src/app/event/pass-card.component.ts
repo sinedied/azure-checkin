@@ -463,7 +463,6 @@ export class PassCardComponent {
       (res, char, i) => res + char.charCodeAt(0) * Math.pow(10, i),
       0
     );
-    console.log(n);
     let x = Math.sin(n) * 10000;
     return x - Math.floor(x);
   }

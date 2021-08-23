@@ -1,21 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { environment } from '../environments/environment';
 import { EventService } from './shared/event.service';
 
 @Component({
   selector: 'app-home',
   template: `
-    <section class="main">
-      <img
-        src="./assets/azure-fluent.png"
-        alt="Azure Logo"
-        (dblclick)="goToAdmin()"
-      />
+    <section>
       <mat-card>
+        <mat-card-header>
+          <mat-card-title>Azure check-in</mat-card-title>
+          <mat-card-subtitle>For new passengers</mat-card-subtitle>
+          <img
+            mat-card-avatar
+            src="./assets/azure.svg"
+            alt="Azure Logo"
+            (dblclick)="goToAdmin()"
+          />
+        </mat-card-header>
         <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
           <mat-form-field>
-            <mat-label>Enter event code</mat-label>
+            <mat-label>Enter flight number</mat-label>
             <input
               matInput
               value=""
@@ -39,17 +45,21 @@ import { EventService } from './shared/event.service';
           ></mat-progress-bar>
         </form>
       </mat-card>
+      <p class="version">{{ version }}</p>
     </section>
   `,
   styles: [
     `
       :host {
         display: flex;
-        height: 100vh;
+        height: 100%;
         justify-content: center;
         align-items: center;
-        background: #0a0e12;
-        /* background: #f0f2f7; */
+        background: #999;
+        background-image: radial-gradient(circle at center, #999 0%, #444 100%);
+      }
+      .mat-card-avatar {
+        border-radius: 0;
       }
       form {
         display: flex;
@@ -59,10 +69,19 @@ import { EventService } from './shared/event.service';
       .error {
         color: red;
       }
+      .version {
+        opacity: 0.3;
+        margin-top: 10px;
+        text-align: center;
+        font-size: 0.8em;
+        color: #fff;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+      }
     `,
   ],
 })
 export class HomeComponent {
+  version: string = environment.version;
   loading = false;
   error: string | null = null;
   eventForm = new FormGroup({
@@ -81,7 +100,7 @@ export class HomeComponent {
       this.loading = false;
     } catch (error) {
       console.warn(`Event with ID ${eventId} does not exist!`);
-      this.error = 'Invalid event code.';
+      this.error = 'Invalid flight number.';
       this.loading = false;
       return;
     }
