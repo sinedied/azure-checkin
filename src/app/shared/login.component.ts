@@ -4,16 +4,21 @@ import { Component, Input } from '@angular/core';
   selector: 'app-login',
   template: `
     <mat-card>
-      <h1 class="text-ellipsis">
-        <mat-icon class="material-icons-outlined" inline>cloud</mat-icon>
-        {{ eventName || 'Admin login' }}
-      </h1>
+      <mat-card-header>
+        <img mat-card-avatar src="./assets/azure.svg" alt="Azure Logo" />
+        <mat-card-title class="text-ellipsis">
+          {{ eventName || 'Admin login' }}
+        </mat-card-title>
+        <mat-card-subtitle>
+          {{ eventName ? 'Online check-in' : 'Restricted access' }}
+        </mat-card-subtitle>
+      </mat-card-header>
       <ng-container *ngIf="id; else adminLogin">
         <p>
           To get your Azure Boarding Pass, please login with your GitHub
-          account.
+          account.<br />
+          If you don't have a GitHub account, you need to create one first.
         </p>
-        <p>If you don't have a GitHub account, you need to create one first.</p>
       </ng-container>
       <ng-template #adminLogin>
         <p>Only events administrators can access this page.</p>
@@ -41,8 +46,10 @@ import { Component, Input } from '@angular/core';
         max-width: calc(100vw - 20px);
         box-sizing: border-box;
       }
+      .mat-card-avatar {
+        border-radius: 0;
+      }
       .mat-icon {
-        vertical-align: bottom;
         margin-right: 0.5rem;
       }
     `,
