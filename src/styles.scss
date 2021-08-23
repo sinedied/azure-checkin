@@ -55,3 +55,20 @@ body {
   white-space: nowrap;
   overflow: hidden;
 }
+
+.hide-xs,
+.hide-sm {
+  display: none;
+}
+
+@media screen and (min-width: 480px) {
+  .hide-xs {
+    display: initial;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .hide-sm {
+    display: initial;
+  }
+}
