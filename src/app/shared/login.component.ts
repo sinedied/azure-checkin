@@ -37,15 +37,15 @@ import { Component, Input } from '@angular/core';
   `,
   styles: [
     `
-    .mat-card {
-      max-width: calc(100vw - 20px);
-      box-sizing: border-box;
-    }
-    .mat-icon {
-      vertical-align: bottom;
-      margin-right: .5rem;
-    }
-    `
+      .mat-card {
+        max-width: calc(100vw - 20px);
+        box-sizing: border-box;
+      }
+      .mat-icon {
+        vertical-align: bottom;
+        margin-right: 0.5rem;
+      }
+    `,
   ],
 })
 export class LoginComponent {

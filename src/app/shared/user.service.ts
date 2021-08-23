@@ -5,8 +5,7 @@ import { UserInfo } from './user-info';
   providedIn: 'root',
 })
 export class UserService {
-
-  async getUserInfo(): Promise<UserInfo|null> {
+  async getUserInfo(): Promise<UserInfo | null> {
     try {
       const response = await fetch('/.auth/me');
       const payload = await response.json();
@@ -16,5 +15,4 @@ export class UserService {
       return null;
     }
   }
-
 }
