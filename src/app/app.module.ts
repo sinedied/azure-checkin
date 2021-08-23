@@ -15,6 +15,7 @@ import { PassCardComponent } from './event/pass-card.component';
 import { NoPassCardComponent } from './event/no-pass-card.component';
 import { EventListComponent } from './admin/event-list.component';
 import { LocalDatePipe } from './shared/local-date.pipe';
+import { VersionComponent } from './shared/version.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { LocalDatePipe } from './shared/local-date.pipe';
     NoPassCardComponent,
     EventListComponent,
     LocalDatePipe,
+    VersionComponent,
   ],
   imports: [
     BrowserModule,

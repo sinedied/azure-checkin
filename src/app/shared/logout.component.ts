@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 
 @Component({
   selector: 'app-logout',
@@ -15,14 +15,18 @@ import { Component, Input } from '@angular/core';
   `,
   styles: [
     `
-      :host {
+      :host(:not(.inline)) {
         position: absolute;
         right: 20px;
         top: 20px;
+      }
+      :host(.inline) .mat-icon-button {
+        color: #fff;
       }
     `,
   ],
 })
 export class LogoutComponent {
   @Input() redirectUrl: string | null = '/';
+  @Input() @HostBinding('class.inline') inline?: string;
 }
