@@ -3,10 +3,9 @@ import { HttpError } from './http-error';
 import { Event } from './event';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EventService {
-
   async getEvents(): Promise<Event[]> {
     return this.fetch('/api/events');
   }
@@ -15,13 +14,9 @@ export class EventService {
     return this.fetch(`/api/events/${eventId}`);
   }
 
-  async createEvent() {
+  async createEvent() {}
 
-  }
-
-  async freePass(eventId: string, userId: string) {
-
-  }
+  async freePass(eventId: string, userId: string) {}
 
   async getPass(eventId: string) {
     const url = `/api/events/${encodeURIComponent(eventId)}/pass`;
