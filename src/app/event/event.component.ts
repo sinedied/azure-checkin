@@ -85,8 +85,12 @@ export class EventComponent implements OnInit {
         await this.getPass();
       }
     } catch (error) {
-      console.error('Error:', error);
-      this.snackBar.open(`Error: ${error && error.message}`);
+      if (error.status !== 404) {
+        console.error('Error:', error);
+        this.snackBar.open(`Error: ${error && error.message}`, '', {
+          duration: 5000,
+        });
+      }
       this.router.navigate(['']);
       return;
     }
