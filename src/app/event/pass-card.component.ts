@@ -79,7 +79,7 @@ import { Event } from '../shared/event';
           You have a Microsoft account. You can create one on
           <a
             href="http://account.microsoft.com?WT.mc_id=javascript-32417-yolasors"
-            target="blank"
+            target="_blank"
           >
             account.microsoft.com
           </a>
