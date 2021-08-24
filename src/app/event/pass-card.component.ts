@@ -141,7 +141,7 @@ import { Event } from '../shared/event';
         max-width: $maxWidth;
         margin: 0 auto;
         /* box-shadow: 0 0 100px rgba(0, 0, 0, 0.25); */
-        background: linear-gradient(to right, $color, adjust-hue($color, 10%));
+        background: linear-gradient(to right, $color, adjust-hue($color, 10));
         border-top: 1px solid darken($color, 5%);
         border-bottom: 1px solid darken($color, 5%);
         margin-bottom: 20px;
