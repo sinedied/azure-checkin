@@ -86,6 +86,7 @@ export class AdminComponent implements OnInit {
   events: any[] = [];
 
   constructor(
+    private snackBar: MatSnackBar,
     private userService: UserService,
     private eventService: EventService
   ) {}
@@ -99,9 +100,9 @@ export class AdminComponent implements OnInit {
       if (this.user) {
         this.events = await this.eventService.getEvents();
       }
-    } catch (err) {
-      console.error('Error:', err);
-      // this.router.navigate(['']);
+    } catch (error) {
+      console.error('Error:', error);
+      this.snackBar.open(`Error: ${error && error.message}`);
       return;
     }
 

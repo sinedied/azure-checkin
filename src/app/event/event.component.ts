@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from '../shared/event.service';
 import { UserInfo } from '../shared/user-info';
@@ -62,6 +63,7 @@ export class EventComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private snackBar: MatSnackBar,
     private userService: UserService,
     private eventService: EventService
   ) {}
@@ -84,6 +86,7 @@ export class EventComponent implements OnInit {
       }
     } catch (error) {
       console.error('Error:', error);
+      this.snackBar.open(`Error: ${error && error.message}`);
       this.router.navigate(['']);
       return;
     }
