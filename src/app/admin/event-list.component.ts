@@ -62,7 +62,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr
         mat-row
-        (click)="edit(event.id)"
+        [routerLink]="'/admin/event/' + event.id"
         *matRowDef="let event; columns: displayedColumns"
       ></tr>
     </table>
@@ -135,9 +135,5 @@ export class EventListComponent {
 
   getLink(eventId: string): string {
     return `${window.location.origin}/event/${eventId}`;
-  }
-
-  edit(eventId: string) {
-    console.log('edit ' + eventId);
   }
 }
