@@ -10,6 +10,7 @@ const routes: Routes = [
       import('./admin/admin.module').then((m) => m.AdminModule),
   },
   { path: 'event/:id', component: EventComponent },
+  { path: ':id', component: EventComponent },
   { path: '', component: HomeComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

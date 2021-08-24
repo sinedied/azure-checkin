@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { EventService } from '../shared/event.service';
 import { UserInfo } from '../shared/user-info';
 import { UserService } from '../shared/user.service';
 
 @Component({
   selector: 'app-admin',
+
   template: `
     <div *ngIf="loaded; else loading" [class.container]="user">
       <app-login *ngIf="!user; else showAdmin"></app-login>
@@ -15,22 +15,24 @@ import { UserService } from '../shared/user.service';
             <img class="logo" src="./assets/azure.svg" alt="Azure Logo" />
             <span>Azure Check-In</span>
             <span class="spacer"></span>
+            <button mat-flat-button routerLink="/admin/new">
+              <mat-icon aria-hidden="true">add</mat-icon>
+              Create event
+            </button>
             <app-logout
               *ngIf="user"
               redirectUrl="/admin"
               inline="true"
             ></app-logout>
           </mat-toolbar>
-          <app-event-list [events]="events"></app-event-list>
+          <router-outlet></router-outlet>
         </div>
         <app-version></app-version>
       </ng-template>
     </div>
     <ng-template #loading>
-      <mat-progress-bar
-        class="progress"
-        mode="indeterminate"
-      ></mat-progress-bar>
+      <mat-progress-bar class="progress" mode="indeterminate">
+      </mat-progress-bar>
     </ng-template>
   `,
   styles: [
@@ -59,6 +61,10 @@ import { UserService } from '../shared/user.service';
       }
       .mat-toolbar {
         background: linear-gradient(to right, lighten($primary, 10%), $primary);
+
+        .mat-flat-button {
+          margin: 0 10px;
+        }
       }
       .spacer {
         flex: 1 1 auto;
@@ -82,14 +88,11 @@ import { UserService } from '../shared/user.service';
 })
 export class AdminComponent implements OnInit {
   loaded = false;
-  id: string | null = null;
   user: UserInfo | null = null;
-  events: any[] = [];
 
   constructor(
     private snackBar: MatSnackBar,
-    private userService: UserService,
-    private eventService: EventService
+    private userService: UserService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -97,14 +100,11 @@ export class AdminComponent implements OnInit {
 
     try {
       this.user = await this.userService.getUserInfo();
-
-      if (this.user) {
-        this.events = await this.eventService.getEvents();
-      }
     } catch (error) {
       console.error('Error:', error);
-      this.snackBar.open(`Error: ${error && error.message}`, '', { duration: 5000 });
-      return;
+      this.snackBar.open(`Error: ${error && error.message}`, '', {
+        duration: 5000,
+      });
     }
 
     this.loaded = true;
