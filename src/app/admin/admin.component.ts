@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { EventService } from '../shared/event.service';
 import { UserInfo } from '../shared/user-info';
 import { UserService } from '../shared/user.service';
@@ -102,7 +103,7 @@ export class AdminComponent implements OnInit {
       }
     } catch (error) {
       console.error('Error:', error);
-      this.snackBar.open(`Error: ${error && error.message}`);
+      this.snackBar.open(`Error: ${error && error.message}`, '', { duration: 5000 });
       return;
     }
 
