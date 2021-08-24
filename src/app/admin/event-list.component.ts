@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { EventService } from '../shared/event.service';
+import { Event as AppEvent } from '../shared/event';
 
 @Component({
   selector: 'app-event-list',
@@ -8,7 +10,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>Flight nº</th>
         <td mat-cell *matCellDef="let event" class="no-wrap">
-          <a href="/event/{{ event.id }}" target="_blank">{{ event.id }}</a>
+          <a
+            (click)="stopPropagation($event)"
+            href="/{{ event.id }}"
+            target="_blank"
+            >{{ event.id }}</a
+          >
           <button
             mat-icon-button
             matTooltip="Copy link"
@@ -32,9 +39,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
       <ng-container matColumnDef="owner">
         <th mat-header-cell *matHeaderCellDef class="md">Owner</th>
         <td mat-cell *matCellDef="let event" class="md">
-          <a href="https://github.com/{{ event.owner }}" target="_blank">{{
-            event.owner
-          }}</a>
+          <a
+            (click)="stopPropagation($event)"
+            href="https://github.com/{{ event.owner }}"
+            target="_blank"
+            >{{ event.owner }}</a
+          >
         </td>
       </ng-container>
 
@@ -62,7 +72,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr
         mat-row
-        [routerLink]="'/admin/event/' + event.id"
+        [routerLink]="'/admin/' + event.id"
         *matRowDef="let event; columns: displayedColumns"
       ></tr>
     </table>
@@ -108,9 +118,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     `,
   ],
 })
-export class EventListComponent {
-  @Input() events: any[] = [];
-
+export class EventListComponent implements OnInit {
   displayedColumns: string[] = [
     'id',
     'name',
@@ -119,8 +127,28 @@ export class EventListComponent {
     'endDate',
     'passes',
   ];
+  loaded = false;
+  events: AppEvent[] = [];
 
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(
+    private snackBar: MatSnackBar,
+    private eventService: EventService
+  ) {}
+
+  async ngOnInit(): Promise<void> {
+    this.loaded = false;
+
+    try {
+      this.events = await this.eventService.getEvents();
+    } catch (error) {
+      console.error('Error:', error);
+      this.snackBar.open(`Error: ${error && error.message}`, '', {
+        duration: 5000,
+      });
+    }
+
+    this.loaded = true;
+  }
 
   copyLink(event: Event, eventId: string) {
     event.stopPropagation();
@@ -134,6 +162,10 @@ export class EventListComponent {
   }
 
   getLink(eventId: string): string {
-    return `${window.location.origin}/event/${eventId}`;
+    return `${window.location.origin}/${eventId}`;
+  }
+
+  stopPropagation(event: Event) {
+    event.stopPropagation();
   }
 }

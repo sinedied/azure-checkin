@@ -95,7 +95,7 @@ export class HomeComponent {
       return;
     }
 
-    this.router.navigate(['/event/' + encodeURIComponent(eventId)]);
+    this.router.navigate(['/' + encodeURIComponent(eventId)]);
   }
 
   goToAdmin() {

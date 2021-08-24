@@ -9,7 +9,7 @@ import { UserService } from '../shared/user.service';
   selector: 'app-event',
   template: `
     <div *ngIf="loaded; else loading">
-      <app-logout *ngIf="user" redirectUrl="/event/{{ event.id }}"></app-logout>
+      <app-logout *ngIf="user" redirectUrl="/{{ event.id }}"></app-logout>
       <app-login
         *ngIf="!user; else showPass"
         [id]="id"
