@@ -46,6 +46,7 @@ import { UserService } from '../shared/user.service';
         align-items: center;
         background: #999;
         background-image: radial-gradient(circle at center, #999 0%, #444 100%);
+        overflow: auto;
       }
       .container {
         width: 100%;

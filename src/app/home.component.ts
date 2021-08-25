@@ -56,6 +56,7 @@ import { EventService } from './shared/event.service';
         align-items: center;
         background: #999;
         background-image: radial-gradient(circle at center, #999 0%, #444 100%);
+        overflow: auto;
       }
       .mat-card-avatar {
         border-radius: 0;
