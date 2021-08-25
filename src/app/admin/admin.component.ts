@@ -13,7 +13,7 @@ import { UserService } from '../shared/user.service';
         <div class="main">
           <mat-toolbar color="primary">
             <img class="logo" src="./assets/azure.svg" alt="Azure Logo" />
-            <span>Azure Check-In</span>
+            <span class="hide-xs">Azure Check-In</span>
             <span class="spacer"></span>
             <button mat-flat-button routerLink="/admin/new">
               <mat-icon aria-hidden="true">add</mat-icon>
@@ -66,9 +66,6 @@ import { UserService } from '../shared/user.service';
         .mat-flat-button {
           margin: 0 10px;
         }
-      }
-      .spacer {
-        flex: 1 1 auto;
       }
       .logo {
         height: 40px;
