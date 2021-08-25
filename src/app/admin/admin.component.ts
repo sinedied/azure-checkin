@@ -27,8 +27,8 @@ import { UserService } from '../shared/user.service';
           </mat-toolbar>
           <router-outlet></router-outlet>
         </div>
-        <app-version></app-version>
       </ng-template>
+      <app-version></app-version>
     </div>
     <ng-template #loading>
       <mat-progress-bar class="progress" mode="indeterminate">

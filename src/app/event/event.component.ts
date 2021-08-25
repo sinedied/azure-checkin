@@ -26,6 +26,7 @@ import { UserService } from '../shared/user.service';
           <app-no-pass-card [eventName]="event.name"></app-no-pass-card>
         </ng-template>
       </ng-template>
+      <app-version></app-version>
     </div>
     <ng-template #loading>
       <mat-progress-bar
