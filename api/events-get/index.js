@@ -14,7 +14,7 @@ module.exports = async function (context, req, events) {
   const role = getRole(userDetails);
 
   if (role === 'user') {
-    return { status: 401, body: 'Unauthorized' };
+    return { status: 403, body: 'Forbidden' };
   }
 
   const viewableEvents = events
