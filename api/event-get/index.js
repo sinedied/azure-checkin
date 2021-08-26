@@ -1,5 +1,5 @@
-const { getUserInfo, getRole } = require('../helpers/auth');
-const { createEvent } = require('../helpers/event');
+const { getUserInfo, getRole, isAdmin } = require('../helpers/auth');
+const { createEventFromEntity } = require('../helpers/event');
 
 module.exports = async function (context, req, event) {
   const eventId = req.params.eventId;
@@ -13,14 +13,13 @@ module.exports = async function (context, req, event) {
   if (withPasses) {
     const userInfo = getUserInfo(req);
     const { userDetails } = userInfo || {};
-    const role = getRole(userDetails);
 
-    if (role === 'user') {
+    if (!isAdmin(userDetails, event)) {
       return { status: 403, body: 'Forbidden' };
     }
   }
 
   return {
-    body: createEvent(event, withPasses),
+    body: createEventFromEntity(event, withPasses),
   };
 };

@@ -1,5 +1,5 @@
-const { getUserInfo, getRole } = require('../helpers/auth');
-const { createEvent } = require('../helpers/event');
+const { getUserInfo, getRole, isAdmin } = require('../helpers/auth');
+const { createEventFromEntity } = require('../helpers/event');
 
 module.exports = async function (context, req, events) {
   if (!events) {
@@ -18,12 +18,8 @@ module.exports = async function (context, req, events) {
   }
 
   const viewableEvents = events
-    .filter(
-      (event) =>
-        role === 'superadmin' ||
-        (role === 'admin' && event.owner === userDetails)
-    )
-    .map((event) => createEvent(event));
+    .filter((event) => isAdmin(userDetails, event, role))
+    .map((event) => createEventFromEntity(event));
 
   return {
     body: viewableEvents,
