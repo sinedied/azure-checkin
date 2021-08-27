@@ -142,9 +142,7 @@ export class EventListComponent implements OnInit {
       this.events = await this.eventService.getEvents();
     } catch (error) {
       console.error('Error:', error);
-      this.snackBar.open(`Error: ${error && error.message}`, '', {
-        duration: 5000,
-      });
+      this.snackBar.open(`Error: ${error && error.message}`);
     }
 
     this.loaded = true;
