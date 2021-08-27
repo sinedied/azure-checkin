@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Event } from '../shared/event';
-import { EventService } from '../shared/event.service';
+import { EventService, NewEvent } from '../shared/event.service';
 
 @Component({
   selector: 'app-event-edit',
@@ -42,6 +42,7 @@ import { EventService } from '../shared/event.service';
           mat-button
           [disabled]="!loaded || eventForm.invalid || eventForm.pristine"
           matTooltip="Save event"
+          (click)="saveEvent()"
         >
           <mat-icon aria-hidden="true">save</mat-icon>
           <span class="hide-xs">Save</span>
@@ -203,6 +204,7 @@ export class EventEditComponent implements OnInit {
   });
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
     private eventService: EventService
@@ -215,7 +217,6 @@ export class EventEditComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.id = this.route.snapshot.paramMap.get('id') || 'new';
-    console.log(this.id);
 
     if (!this.isNew()) {
       try {
@@ -228,12 +229,9 @@ export class EventEditComponent implements OnInit {
           passes: Object.keys(this.event.passes || {}).join('\n'),
         });
         this.eventForm.enable();
-        console.log(this.eventForm);
       } catch (error) {
         console.error('Error:', error);
-        this.snackBar.open(`Error: ${error && error.message}`, '', {
-          duration: 5000,
-        });
+        this.snackBar.open(`Error: ${error && error.message}`);
       }
     }
 
@@ -244,7 +242,7 @@ export class EventEditComponent implements OnInit {
     return this.id === 'new';
   }
 
-  dateSuffix(): string {
+  getDateSuffix(): string {
     const date = this.eventForm.get('startDate')!.value || new Date();
     return this.dateToUtcString(date)
       .split('T')[0]
@@ -265,7 +263,37 @@ export class EventEditComponent implements OnInit {
     }
   }
 
-  saveEvent(): void {}
+  async saveEvent(): Promise<void> {
+    if (this.isNew()) {
+      this.saveNewEvent();
+    }
+  }
+
+  private async saveNewEvent(): Promise<void> {
+    try {
+      this.loaded = false;
+      this.eventForm.disable();
+      const formData = this.eventForm.value;
+      const newEvent: NewEvent = {
+        id: formData.prefix + this.getDateSuffix(),
+        name: formData.name,
+        startDate: this.dateToUtcString(formData.startDate),
+        endDate: this.dateToUtcString(formData.endDate),
+        passes: formData.passes
+          .split('\n')
+          .filter((pass: string) => pass)
+          .map((pass: string) => pass.trim()),
+      };
+      await this.eventService.createEvent(newEvent);
+      this.snackBar.open(`Event ${newEvent.name} successfully created.`);
+      this.router.navigate(['/admin']);
+    } catch (error) {
+      console.error('Error:', error);
+      this.snackBar.open(`Error: ${error && error.message}`);
+    }
+    this.eventForm.enable();
+    this.loaded = true;
+  }
 
   private dateToUtcString(date: Date): string {
     const offset = date.getTimezoneOffset();

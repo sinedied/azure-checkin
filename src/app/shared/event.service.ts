@@ -2,6 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpError } from './http-error';
 import { Event } from './event';
 
+export interface NewEvent {
+  id: string;
+  name: string;
+  startDate: string;
+  endDate: string;
+  passes: string[];
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -16,7 +24,15 @@ export class EventService {
     );
   }
 
-  async createEvent() {}
+  async createEvent(event: NewEvent): Promise<Event> {
+    return this.fetch('/api/events', {
+      method: 'POST',
+      body: JSON.stringify(event),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
 
   async freePass(eventId: string, userId: string) {}
 
