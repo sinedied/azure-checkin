@@ -89,9 +89,7 @@ export class EventComponent implements OnInit {
     } catch (error) {
       if (error.status !== 404) {
         console.error('Error:', error);
-        this.snackBar.open(`Error: ${error && error.message}`, '', {
-          duration: 5000,
-        });
+        this.snackBar.open(`Error: ${error && error.message}`);
       }
       this.router.navigate(['']);
       return;
