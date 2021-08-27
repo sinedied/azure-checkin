@@ -1,4 +1,4 @@
-const { getUserInfo, getRole, isAdmin } = require('../helpers/auth');
+const { getUserInfo, isAdmin } = require('../helpers/auth');
 const { createEventFromEntity } = require('../helpers/event');
 
 module.exports = async function (context, req, event) {

@@ -11,12 +11,13 @@ const createEventFromEntity = (data, withPasses = false) => ({
   ...((withPasses && { passes: data.passes }) || {}),
 });
 
-const createEntityFromEvent = (event) => ({
+const createEntityFromEvent = (event, owner) => ({
   id: event.id,
+  owner,
   name: event.name,
   startDate: event.startDate,
   endDate: event.endDate,
-  passes: event.passes,
+  passes: Object.fromEntries(event.passes.map((pass) => [pass, null])),
   locked: false,
   archived: false,
   deleted: false,
