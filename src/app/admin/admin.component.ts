@@ -12,10 +12,22 @@ import { UserService } from '../shared/user.service';
       <ng-template #showAdmin>
         <div class="main">
           <mat-toolbar color="primary">
-            <img class="logo" src="./assets/azure.svg" alt="Azure Logo" />
+            <img
+              class="logo"
+              src="./assets/azure.svg"
+              alt="Azure Logo"
+              routerLink="/admin"
+              routerLinkActive
+              [routerLinkActiveOptions]="{ exact: true }"
+              #routerLink="routerLinkActive"
+            />
             <span class="hide-xs">Azure Check-In</span>
             <span class="spacer"></span>
-            <button mat-flat-button routerLink="/admin/new">
+            <button
+              *ngIf="routerLink.isActive"
+              mat-flat-button
+              routerLink="/admin/new"
+            >
               <mat-icon aria-hidden="true">add</mat-icon>
               Create event
             </button>
@@ -100,9 +112,7 @@ export class AdminComponent implements OnInit {
       this.user = await this.userService.getUserInfo();
     } catch (error) {
       console.error('Error:', error);
-      this.snackBar.open(`Error: ${error && error.message}`, '', {
-        duration: 5000,
-      });
+      this.snackBar.open(`Error: ${error && error.message}`);
     }
 
     this.loaded = true;
