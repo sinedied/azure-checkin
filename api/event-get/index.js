@@ -5,7 +5,7 @@ module.exports = async function (context, req, event) {
   const eventId = req.params.eventId;
   const withPasses = Boolean(req.query.withPasses);
 
-  if (!eventId || !event) {
+  if (!eventId || !event || event.deleted) {
     context.log(`Event not found, id=${eventId}`);
     return { status: 404, body: 'Not found' };
   }
