@@ -11,14 +11,22 @@ module.exports = async function (context, req, events) {
 
   const userInfo = getUserInfo(req);
   const { userDetails } = userInfo || {};
+
+  if (!userInfo || !userInfo.userId) {
+    return { status: 401, body: 'Unauthorized' };
+  }
+
   const role = getRole(userDetails);
 
-  if (role === 'user') {
+  if (role !== 'superadmin' && role !== 'admin') {
     return { status: 403, body: 'Forbidden' };
   }
 
+  const showArchived = Boolean(req.query.showArchived) || false;
+
   const viewableEvents = events
     .filter((event) => isAdmin(userDetails, event, role))
+    .filter((event) => !event.deleted && (showArchived || !event.archived))
     .map((event) => createEventFromEntity(event));
 
   return {
