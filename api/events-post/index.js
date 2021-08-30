@@ -9,6 +9,17 @@ const idPatternRegex = /^[a-z]{3}[0-9]{6}$/;
 module.exports = async function (context, req, existingEvent) {
   const event = req.body;
 
+  const userInfo = getUserInfo(req);
+  const { userDetails } = userInfo || {};
+
+  if (!userInfo || !userInfo.userId) {
+    return { status: 401, body: 'Unauthorized' };
+  }
+
+  if (!isAdmin(userDetails, event)) {
+    return { status: 403, body: 'Forbidden' };
+  }
+
   if (
     !event ||
     !event.id ||
@@ -60,17 +71,6 @@ module.exports = async function (context, req, existingEvent) {
       status: 409,
       body: `Event ID ${event.id} already exists`,
     };
-  }
-
-  const userInfo = getUserInfo(req);
-  const { userDetails } = userInfo || {};
-
-  if (!userInfo || !userInfo.userId) {
-    return { status: 401, body: 'Unauthorized' };
-  }
-
-  if (!isAdmin(userDetails, event)) {
-    return { status: 403, body: 'Forbidden' };
   }
 
   const newEvent = createEntityFromEvent(event, userDetails);
