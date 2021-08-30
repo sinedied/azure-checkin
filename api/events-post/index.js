@@ -65,6 +65,10 @@ module.exports = async function (context, req, existingEvent) {
   const userInfo = getUserInfo(req);
   const { userDetails } = userInfo || {};
 
+  if (!userInfo || !userInfo.userId) {
+    return { status: 401, body: 'Unauthorized' };
+  }
+
   if (!isAdmin(userDetails, event)) {
     return { status: 403, body: 'Forbidden' };
   }
