@@ -1,0 +1,35 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": ["patch"],
+      "route": "events/{eventId}/passes/{pass}"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "$return"
+    },
+    {
+      "type": "cosmosDB",
+      "name": "event",
+      "databaseName": "cantinadb",
+      "collectionName": "events",
+      "connectionStringSetting": "CosmosDBConnectionString",
+      "direction": "in",
+      "Id": "{eventId}",
+      "PartitionKey": "{eventId}"
+    },
+    {
+      "type": "cosmosDB",
+      "name": "updatedEvent",
+      "databaseName": "cantinadb",
+      "collectionName": "events",
+      "connectionStringSetting": "CosmosDBConnectionString",
+      "direction": "out"
+    }
+  ]
+}
