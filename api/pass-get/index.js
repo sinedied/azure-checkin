@@ -1,10 +1,8 @@
 const crypto = require('crypto');
-const { getUserInfo, getRole } = require('../helpers/auth');
+const { getUserInfo, isAdmin } = require('../helpers/auth');
 
-module.exports = async function (context, req, event, client) {
+module.exports = async function (context, req, event) {
   const eventId = req.params.eventId;
-
-  context.log({ client });
 
   if (!eventId || !event) {
     context.log(`Event not found, id=${eventId}`);
@@ -18,13 +16,9 @@ module.exports = async function (context, req, event, client) {
   }
 
   const { userId, userDetails } = userInfo;
-  const role = getRole(userDetails);
 
   // If user is admin for this event, generate a fake pass
-  if (
-    role === 'superadmin' ||
-    (role === 'admin' && event.owner === userDetails)
-  ) {
+  if (isAdmin(userDetails, event)) {
     context.log(`User ${userId} is admin, generating fake pass`);
 
     return {
