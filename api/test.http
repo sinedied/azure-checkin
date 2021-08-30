@@ -22,8 +22,22 @@ content-type: application/json
 {
   "id": "tst210623",
   "name": "TestConf",
-  "startDate": "2021-08-26T00:00:00",
+  "startDate": "2021-08-30T00:00:00",
   "endDate": "2021-09-01T00:00:00",
   "passes": ["123456", "789123"]
 }
 
+###
+
+http://localhost:7071/api/events/tst210623?withPasses=true
+x-ms-client-principal: eyAidXNlcklkIjogIjEyMyIsICJ1c2VyRGV0YWlscyI6ICJzaW5lZGllZCIgfQ==
+
+###
+
+PATCH http://localhost:7071/api/events/tst210623/passes/123456
+x-ms-client-principal: eyAidXNlcklkIjogIjEyMyIsICJ1c2VyRGV0YWlscyI6ICJzaW5lZGllZCIgfQ==
+content-type: application/json
+
+{
+  "assign": false
+}
