@@ -4,7 +4,7 @@ const { getUserInfo, isAdmin } = require('../helpers/auth');
 module.exports = async function (context, req, event) {
   const eventId = req.params.eventId;
 
-  if (!eventId || !event) {
+  if (!eventId || !event || event.deleted) {
     context.log(`Event not found, id=${eventId}`);
     return { status: 404, body: 'Not found' };
   }
@@ -37,6 +37,11 @@ module.exports = async function (context, req, event) {
 
   if (!userPass) {
     context.log(`User hash ${hash} has not yet a pass attributed`);
+
+    if (event.archived || event.locked) {
+      context.log(`Event ${eventId} is locked, cannot assign pass`);
+      return { status: 403, body: 'Forbidden' };
+    }
 
     userPass = Object.keys(event.passes).find(
       (pass) => event.passes[pass] === null

@@ -5,7 +5,7 @@ module.exports = async function (context, req, event) {
   const pass = req.params.pass;
   const body = req.body;
 
-  if (!eventId || !event) {
+  if (!eventId || !event || event.deleted) {
     context.log(`Event not found, id=${eventId}`);
     return { status: 404, body: 'Not found' };
   }
@@ -22,7 +22,7 @@ module.exports = async function (context, req, event) {
     return { status: 401, body: 'Unauthorized' };
   }
 
-  if (!isAdmin(userDetails, event)) {
+  if (!isAdmin(userDetails, event) || event.archived || event.locked) {
     return { status: 403, body: 'Forbidden' };
   }
 
