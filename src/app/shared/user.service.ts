@@ -7,10 +7,8 @@ import { UserInfo } from './user-info';
 export class UserService {
   async getUserInfo(): Promise<UserInfo | null> {
     try {
-      const response = await fetch('/.auth/me');
-      const payload = await response.json();
-      const { clientPrincipal } = payload;
-      return clientPrincipal;
+      const response = await fetch('/api/users/me');
+      return await response.json();
     } catch (error) {
       return null;
     }
