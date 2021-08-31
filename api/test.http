@@ -41,3 +41,8 @@ content-type: application/json
 {
   "assign": false
 }
+
+###
+
+http://localhost:7071/api/users/me
+x-ms-client-principal: eyAidXNlcklkIjogIjEyMyIsICJ1c2VyRGV0YWlscyI6ICJzaW5lZGllZCIgfQ==
