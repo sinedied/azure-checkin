@@ -54,6 +54,10 @@ import { Event as AppEvent } from '../shared/event';
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row [routerLink]="'/admin/' + event.id" *matRowDef="let event; columns: displayedColumns"></tr>
     </table>
+    <div *ngIf="!loaded">
+      <mat-progress-bar class="progress" mode="indeterminate"> </mat-progress-bar>
+    </div>
+    <div class="info" *ngIf="loaded && events.length === 0">No events to display.</div>
   `,
   styles: [
     `
@@ -86,6 +90,11 @@ import { Event as AppEvent } from '../shared/event';
       }
       .mat-icon.mat-icon-inline {
         vertical-align: baseline;
+      }
+      .info {
+        background: #fff;
+        padding: 20px;
+        text-align: center;
       }
 
       @media screen and (max-width: 768px) {
