@@ -10,16 +10,7 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [LoginComponent, LogoutComponent, VersionComponent],
   imports: [CommonModule, MaterialModule],
-  providers: [
-    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 3000 } },
-  ],
-  exports: [
-    CommonModule,
-    MaterialModule,
-    ReactiveFormsModule,
-    LoginComponent,
-    LogoutComponent,
-    VersionComponent,
-  ],
+  providers: [{ provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 3000 } }],
+  exports: [CommonModule, MaterialModule, ReactiveFormsModule, LoginComponent, LogoutComponent, VersionComponent],
 })
 export class SharedModule {}

@@ -10,12 +10,7 @@ import { EventService, NewEvent } from '../shared/event.service';
   template: `
     <div class="container">
       <mat-toolbar class="mat-elevation-z3">
-        <button
-          class="back"
-          mat-icon-button
-          matTooltip="Go back to list"
-          routerLink=".."
-        >
+        <button class="back" mat-icon-button matTooltip="Go back to list" routerLink="..">
           <mat-icon aria-hidden="true">arrow_back</mat-icon>
         </button>
         <div class="text-ellipsis">
@@ -59,53 +54,25 @@ import { EventService, NewEvent } from '../shared/event.service';
             <div class="form-line first-line">
               <mat-form-field>
                 <mat-label>Event name</mat-label>
-                <input
-                  formControlName="name"
-                  matInput
-                  placeholder="AwesomeConf"
-                  (input)="updatePrefix()"
-                />
+                <input formControlName="name" matInput placeholder="AwesomeConf" (input)="updatePrefix()" />
               </mat-form-field>
-              <mat-form-field
-                *ngIf="this.isNew()"
-                [class.readonly]="!eventForm.controls.editPrefix.value"
-              >
+              <mat-form-field *ngIf="this.isNew()" [class.readonly]="!eventForm.controls.editPrefix.value">
                 <mat-label>Flight nº prefix</mat-label>
                 <input type="text" formControlName="prefix" matInput />
-                <mat-error *ngIf="!eventForm.controls.prefix.valid"
-                  >Must be 3 lowercase letters</mat-error
-                >
+                <mat-error *ngIf="!eventForm.controls.prefix.valid">Must be 3 lowercase letters</mat-error>
               </mat-form-field>
-              <mat-checkbox
-                *ngIf="this.isNew()"
-                color="primary"
-                formControlName="editPrefix"
-              >
+              <mat-checkbox *ngIf="this.isNew()" color="primary" formControlName="editPrefix">
                 Customize flight nº prefix
               </mat-checkbox>
             </div>
             <div class="form-line">
               <mat-form-field>
                 <mat-label>Event dates</mat-label>
-                <mat-date-range-input
-                  [rangePicker]="picker"
-                  [min]="getMinDate()"
-                >
-                  <input
-                    matStartDate
-                    formControlName="startDate"
-                    placeholder="Start date"
-                  />
-                  <input
-                    matEndDate
-                    formControlName="endDate"
-                    placeholder="End date"
-                  />
+                <mat-date-range-input [rangePicker]="picker" [min]="getMinDate()">
+                  <input matStartDate formControlName="startDate" placeholder="Start date" />
+                  <input matEndDate formControlName="endDate" placeholder="End date" />
                 </mat-date-range-input>
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="picker"
-                ></mat-datepicker-toggle>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-date-range-picker #picker></mat-date-range-picker>
                 <mat-hint>Using time zone {{ timezone }}</mat-hint>
               </mat-form-field>
@@ -128,19 +95,13 @@ import { EventService, NewEvent } from '../shared/event.service';
               <mat-expansion-panel>
                 <mat-expansion-panel-header>
                   <mat-panel-title> Azure passes </mat-panel-title>
-                  <mat-panel-description>
-                    Expand to view and update pass attribution
-                  </mat-panel-description>
+                  <mat-panel-description> Expand to view and update pass attribution </mat-panel-description>
                 </mat-expansion-panel-header>
                 <div role="list">
                   <div class="item" role="listitem" *ngFor="let pass of passes">
                     <code>{{ pass[0] }}</code>
                     <mat-icon>
-                      {{
-                        pass[1]
-                          ? 'check_circle_outline'
-                          : 'radio_button_unchecked'
-                      }}
+                      {{ pass[1] ? 'check_circle_outline' : 'radio_button_unchecked' }}
                     </mat-icon>
                     <div class="text-ellipsis hash hide-xs">
                       {{ pass[1] || '' }}
@@ -259,10 +220,7 @@ export class EventEditComponent implements OnInit {
   event: Event | null = null;
   eventForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.maxLength(128)]),
-    prefix: new FormControl('zzz', [
-      Validators.required,
-      Validators.pattern('[a-z]{3}'),
-    ]),
+    prefix: new FormControl('zzz', [Validators.required, Validators.pattern('[a-z]{3}')]),
     startDate: new FormControl('', [Validators.required]),
     endDate: new FormControl('', [Validators.required]),
     editPrefix: new FormControl(false),
@@ -277,9 +235,7 @@ export class EventEditComponent implements OnInit {
     private eventService: EventService
   ) {
     const offset = -new Date().getTimezoneOffset() / 60;
-    this.timezone =
-      Intl.DateTimeFormat().resolvedOptions().timeZone +
-      ` (UTC${offset < 0 ? offset : '+' + offset})`;
+    this.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone + ` (UTC${offset < 0 ? offset : '+' + offset})`;
   }
 
   async ngOnInit(): Promise<void> {
@@ -315,15 +271,11 @@ export class EventEditComponent implements OnInit {
 
   getDateSuffix(): string {
     const date = this.eventForm.get('startDate')!.value || new Date();
-    return this.dateToUtcString(date)
-      .split('T')[0]
-      .replace(/-/g, '')
-      .substring(2);
+    return this.dateToUtcString(date).split('T')[0].replace(/-/g, '').substring(2);
   }
 
   getMinDate(): Date {
-    const eventDate =
-      (this.event && new Date(this.event.startDate)) || this.today;
+    const eventDate = (this.event && new Date(this.event.startDate)) || this.today;
     return eventDate < this.today ? eventDate : this.today;
   }
 

@@ -11,37 +11,16 @@ import { EventService } from './shared/event.service';
         <mat-card-header>
           <mat-card-title>Azure check-in</mat-card-title>
           <mat-card-subtitle>For new passengers</mat-card-subtitle>
-          <img
-            mat-card-avatar
-            src="./assets/azure.svg"
-            alt="Azure Logo"
-            (dblclick)="goToAdmin()"
-          />
+          <img mat-card-avatar src="./assets/azure.svg" alt="Azure Logo" (dblclick)="goToAdmin()" />
         </mat-card-header>
         <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
           <mat-form-field>
             <mat-label>Enter flight number</mat-label>
-            <input
-              matInput
-              value=""
-              type="text"
-              formControlName="eventId"
-              required
-            />
+            <input matInput value="" type="text" formControlName="eventId" required />
           </mat-form-field>
           <p class="error" *ngIf="error">{{ error }}</p>
-          <button
-            type="submit"
-            [disabled]="!eventForm.valid || loading"
-            mat-raised-button
-            color="primary"
-          >
-            Go
-          </button>
-          <mat-progress-bar
-            *ngIf="loading"
-            mode="indeterminate"
-          ></mat-progress-bar>
+          <button type="submit" [disabled]="!eventForm.valid || loading" mat-raised-button color="primary">Go</button>
+          <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
         </form>
       </mat-card>
       <app-version></app-version>

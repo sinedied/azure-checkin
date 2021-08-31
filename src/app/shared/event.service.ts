@@ -19,9 +19,7 @@ export class EventService {
   }
 
   async getEvent(eventId: string, withPasses: boolean = false): Promise<Event> {
-    return this.fetch(
-      `/api/events/${eventId}${withPasses ? '?withPasses=1' : ''}`
-    );
+    return this.fetch(`/api/events/${eventId}${withPasses ? '?withPasses=1' : ''}`);
   }
 
   async createEvent(event: NewEvent): Promise<Event> {

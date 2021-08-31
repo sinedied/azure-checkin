@@ -19,9 +19,7 @@ import { Event } from '../shared/event';
             <div class="label">Your Azure pass is</div>
             <code class="pass-text" (click)="copyPassToClipboard()">
               {{ pass }}
-              <mat-icon inline matTooltip="Copy to clipboard"
-                >content_copy</mat-icon
-              >
+              <mat-icon inline matTooltip="Copy to clipboard">content_copy</mat-icon>
             </code>
             <input id="pass-code" [value]="pass" />
           </div>
@@ -54,12 +52,7 @@ import { Event } from '../shared/event';
         </div>
       </div>
       <div class="pass-footer">
-        <img
-          class="hide-xs"
-          src="/assets/barcode.svg"
-          alt="barcode"
-          aria-hidden
-        />
+        <img class="hide-xs" src="/assets/barcode.svg" alt="barcode" aria-hidden />
         <div></div>
         <a
           matRipple
@@ -77,19 +70,14 @@ import { Event } from '../shared/event';
       <ul>
         <li>
           You have a Microsoft account. You can create one on
-          <a
-            href="http://account.microsoft.com?WT.mc_id=javascript-32417-yolasors"
-            target="_blank"
-          >
+          <a href="http://account.microsoft.com?WT.mc_id=javascript-32417-yolasors" target="_blank">
             account.microsoft.com
           </a>
         </li>
         <li>
-          Your Microsoft account was NEVER used for another Azure
-          subscription.<br />
-          If you ever activated a Free Azure Trial with this account, you won't
-          be able to use the Azure Pass. In that case, you need to create a new
-          Microsoft account.
+          Your Microsoft account was NEVER used for another Azure subscription.<br />
+          If you ever activated a Free Azure Trial with this account, you won't be able to use the Azure Pass. In that
+          case, you need to create a new Microsoft account.
         </li>
       </ul>
     </div>
@@ -145,174 +133,30 @@ import { Event } from '../shared/event';
         border-top: 1px solid darken($color, 5%);
         border-bottom: 1px solid darken($color, 5%);
         margin-bottom: 20px;
-        mask-image: linear-gradient(
-            to right,
-            transparent 8px,
-            #000 9px,
-            #000 51%,
-            transparent 0
-          ),
-          linear-gradient(
-            to left,
-            transparent 8px,
-            #000 9px,
-            #000 51%,
-            transparent 0
-          ),
-          radial-gradient(
-            circle at 0 0px,
-            transparent 8px,
-            black 9px,
-            black 20px,
-            transparent 0
-          ),
-          radial-gradient(
-            circle at 0 30px,
-            transparent 8px,
-            black 9px,
-            black 20px,
-            transparent 0
-          ),
-          radial-gradient(
-            circle at 0 60px,
-            transparent 8px,
-            black 9px,
-            black 20px,
-            transparent 0
-          ),
-          radial-gradient(
-            circle at 0 90px,
-            transparent 8px,
-            black 9px,
-            black 20px,
-            transparent 0
-          ),
-          radial-gradient(
-            circle at 0 120px,
-            transparent 8px,
-            black 9px,
-            black 20px,
-            transparent 0
-          ),
-          radial-gradient(
-            circle at 0 150px,
-            transparent 8px,
-            black 9px,
-            black 20px,
-            transparent 0
-          ),
-          radial-gradient(
-            circle at 0 180px,
-            transparent 8px,
-            black 9px,
-            black 20px,
-            transparent 0
-          ),
-          radial-gradient(
-            circle at 0 210px,
-            transparent 8px,
-            black 9px,
-            black 20px,
-            transparent 0
-          ),
-          radial-gradient(
-            circle at 0 240px,
-            transparent 8px,
-            black 9px,
-            black 20px,
-            transparent 0
-          ),
-          radial-gradient(
-            circle at 0 270px,
-            transparent 8px,
-            black 9px,
-            black 20px,
-            transparent 0
-          ),
-          radial-gradient(
-            circle at 0 300px,
-            transparent 8px,
-            black 9px,
-            black 20px,
-            transparent 0
-          ),
-          radial-gradient(
-            circle at 100% 0px,
-            transparent 8px,
-            black 9px,
-            black 20px,
-            transparent 0
-          ),
-          radial-gradient(
-            circle at 100% 30px,
-            transparent 8px,
-            black 9px,
-            black 20px,
-            transparent 0
-          ),
-          radial-gradient(
-            circle at 100% 60px,
-            transparent 8px,
-            black 9px,
-            black 20px,
-            transparent 0
-          ),
-          radial-gradient(
-            circle at 100% 90px,
-            transparent 8px,
-            black 9px,
-            black 20px,
-            transparent 0
-          ),
-          radial-gradient(
-            circle at 100% 120px,
-            transparent 8px,
-            black 9px,
-            black 20px,
-            transparent 0
-          ),
-          radial-gradient(
-            circle at 100% 150px,
-            transparent 8px,
-            black 9px,
-            black 20px,
-            transparent 0
-          ),
-          radial-gradient(
-            circle at 100% 180px,
-            transparent 8px,
-            black 9px,
-            black 20px,
-            transparent 0
-          ),
-          radial-gradient(
-            circle at 100% 210px,
-            transparent 8px,
-            black 9px,
-            black 20px,
-            transparent 0
-          ),
-          radial-gradient(
-            circle at 100% 240px,
-            transparent 8px,
-            black 9px,
-            black 20px,
-            transparent 0
-          ),
-          radial-gradient(
-            circle at 100% 270px,
-            transparent 8px,
-            black 9px,
-            black 20px,
-            transparent 0
-          ),
-          radial-gradient(
-            circle at 100% 300px,
-            transparent 8px,
-            black 9px,
-            black 20px,
-            transparent 0
-          );
+        mask-image: linear-gradient(to right, transparent 8px, #000 9px, #000 51%, transparent 0),
+          linear-gradient(to left, transparent 8px, #000 9px, #000 51%, transparent 0),
+          radial-gradient(circle at 0 0px, transparent 8px, black 9px, black 20px, transparent 0),
+          radial-gradient(circle at 0 30px, transparent 8px, black 9px, black 20px, transparent 0),
+          radial-gradient(circle at 0 60px, transparent 8px, black 9px, black 20px, transparent 0),
+          radial-gradient(circle at 0 90px, transparent 8px, black 9px, black 20px, transparent 0),
+          radial-gradient(circle at 0 120px, transparent 8px, black 9px, black 20px, transparent 0),
+          radial-gradient(circle at 0 150px, transparent 8px, black 9px, black 20px, transparent 0),
+          radial-gradient(circle at 0 180px, transparent 8px, black 9px, black 20px, transparent 0),
+          radial-gradient(circle at 0 210px, transparent 8px, black 9px, black 20px, transparent 0),
+          radial-gradient(circle at 0 240px, transparent 8px, black 9px, black 20px, transparent 0),
+          radial-gradient(circle at 0 270px, transparent 8px, black 9px, black 20px, transparent 0),
+          radial-gradient(circle at 0 300px, transparent 8px, black 9px, black 20px, transparent 0),
+          radial-gradient(circle at 100% 0px, transparent 8px, black 9px, black 20px, transparent 0),
+          radial-gradient(circle at 100% 30px, transparent 8px, black 9px, black 20px, transparent 0),
+          radial-gradient(circle at 100% 60px, transparent 8px, black 9px, black 20px, transparent 0),
+          radial-gradient(circle at 100% 90px, transparent 8px, black 9px, black 20px, transparent 0),
+          radial-gradient(circle at 100% 120px, transparent 8px, black 9px, black 20px, transparent 0),
+          radial-gradient(circle at 100% 150px, transparent 8px, black 9px, black 20px, transparent 0),
+          radial-gradient(circle at 100% 180px, transparent 8px, black 9px, black 20px, transparent 0),
+          radial-gradient(circle at 100% 210px, transparent 8px, black 9px, black 20px, transparent 0),
+          radial-gradient(circle at 100% 240px, transparent 8px, black 9px, black 20px, transparent 0),
+          radial-gradient(circle at 100% 270px, transparent 8px, black 9px, black 20px, transparent 0),
+          radial-gradient(circle at 100% 300px, transparent 8px, black 9px, black 20px, transparent 0);
       }
 
       .pass-header,
@@ -459,10 +303,7 @@ export class PassCardComponent {
   }
 
   private pseudoRandom(seed: string) {
-    const n = Array.from(seed).reduce(
-      (res, char, i) => res + char.charCodeAt(0) * Math.pow(10, i),
-      0
-    );
+    const n = Array.from(seed).reduce((res, char, i) => res + char.charCodeAt(0) * Math.pow(10, i), 0);
     let x = Math.sin(n) * 10000;
     return x - Math.floor(x);
   }

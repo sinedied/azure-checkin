@@ -15,8 +15,7 @@ import { Component, Input } from '@angular/core';
       </mat-card-header>
       <ng-container *ngIf="id; else adminLogin">
         <p>
-          To get your Azure Boarding Pass, please login with your GitHub
-          account.<br />
+          To get your Azure Boarding Pass, please login with your GitHub account.<br />
           If you don't have a GitHub account, you need to create one first.
         </p>
       </ng-container>
@@ -24,16 +23,8 @@ import { Component, Input } from '@angular/core';
         <p>Only events administrators can access this page.</p>
       </ng-template>
       <mat-card-actions align="end">
-        <a *ngIf="id" mat-button href="https://github.com/join" target="_blank">
-          Create GitHub account
-        </a>
-        <a
-          mat-raised-button
-          color="primary"
-          href="/.auth/login/github?post_login_redirect_uri={{
-            getRedirectUrl()
-          }}"
-        >
+        <a *ngIf="id" mat-button href="https://github.com/join" target="_blank"> Create GitHub account </a>
+        <a mat-raised-button color="primary" href="/.auth/login/github?post_login_redirect_uri={{ getRedirectUrl() }}">
           <mat-icon aria-hidden="true">login</mat-icon>
           Login with GitHub
         </a>
