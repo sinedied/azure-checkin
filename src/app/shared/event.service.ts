@@ -14,8 +14,8 @@ export interface NewEvent {
   providedIn: 'root',
 })
 export class EventService {
-  async getEvents(): Promise<Event[]> {
-    return this.fetch('/api/events');
+  async getEvents(showArchived: boolean = false): Promise<Event[]> {
+    return this.fetch(`/api/events${showArchived ? '?showArchived=1' : ''}`);
   }
 
   async getEvent(eventId: string, withPasses: boolean = false): Promise<Event> {

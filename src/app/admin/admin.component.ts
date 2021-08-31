@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserInfo } from '../shared/user-info';
 import { UserService } from '../shared/user.service';
 
@@ -18,14 +19,27 @@ import { UserService } from '../shared/user.service';
               alt="Azure Logo"
               routerLink="/admin"
               routerLinkActive
-              [routerLinkActiveOptions]="{ exact: true }"
+              [routerLinkActiveOptions]="{
+                matrixParams: 'ignored',
+                paths: 'exact',
+                queryParams: 'ignored',
+                fragment: 'exact'
+              }"
               #routerLink="routerLinkActive"
             />
             <span class="hide-xs">Azure Check-In</span>
             <span class="spacer"></span>
-            <button *ngIf="routerLink.isActive" mat-flat-button routerLink="/admin/new">
+            <mat-slide-toggle
+              *ngIf="routerLink.isActive"
+              matTooltip="Show archived events"
+              [checked]="archived"
+              (change)="toggleArchived()"
+            >
+              Archived
+            </mat-slide-toggle>
+            <button *ngIf="routerLink.isActive" mat-flat-button routerLink="/admin/new" matTooltip="Create event">
               <mat-icon aria-hidden="true">add</mat-icon>
-              Create event
+              <span class="hide-sm">Create event</span>
             </button>
             <app-logout *ngIf="user" redirectUrl="/admin" inline="true"></app-logout>
           </mat-toolbar>
@@ -82,6 +96,11 @@ import { UserService } from '../shared/user.service';
         filter: drop-shadow(0 0 20px #fff);
         margin: 0 1em 0 0.5em;
       }
+      .mat-slide-toggle {
+        font-size: 14px;
+        font-weight: 400;
+        margin: 0 1em;
+      }
 
       @media screen and (min-width: 768px) {
         .main {
@@ -93,11 +112,21 @@ import { UserService } from '../shared/user.service';
 })
 export class AdminComponent implements OnInit {
   loaded = false;
+  archived = false;
   user: UserInfo | null = null;
 
-  constructor(private snackBar: MatSnackBar, private userService: UserService) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar,
+    private userService: UserService
+  ) {}
 
   async ngOnInit(): Promise<void> {
+    this.route.queryParams.pipe().subscribe((params) => {
+      this.archived = params.archived === 'true';
+    });
+
     this.loaded = false;
 
     try {
@@ -108,5 +137,10 @@ export class AdminComponent implements OnInit {
     }
 
     this.loaded = true;
+  }
+
+  toggleArchived(): void {
+    this.archived = !this.archived;
+    this.router.navigate(['/admin'], this.archived ? { queryParams: { archived: true } } : {});
   }
 }

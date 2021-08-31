@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EventService } from '../shared/event.service';
+import { ActivatedRoute } from '@angular/router';
 import { Event as AppEvent } from '../shared/event';
 
 @Component({
@@ -108,21 +109,16 @@ import { Event as AppEvent } from '../shared/event';
 export class EventListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'owner', 'startDate', 'endDate', 'passes'];
   loaded = false;
+  showArchived: boolean = false;
   events: AppEvent[] = [];
 
-  constructor(private snackBar: MatSnackBar, private eventService: EventService) {}
+  constructor(private route: ActivatedRoute, private snackBar: MatSnackBar, private eventService: EventService) {}
 
   async ngOnInit(): Promise<void> {
-    this.loaded = false;
-
-    try {
-      this.events = await this.eventService.getEvents();
-    } catch (error) {
-      console.error('Error:', error);
-      this.snackBar.open(`Error: ${error && error.message}`);
-    }
-
-    this.loaded = true;
+    this.route.queryParams.pipe().subscribe((params) => {
+      this.showArchived = params.archived === 'true';
+      this.loadEvents();
+    });
   }
 
   copyLink(event: Event, eventId: string) {
@@ -140,5 +136,18 @@ export class EventListComponent implements OnInit {
 
   stopPropagation(event: Event) {
     event.stopPropagation();
+  }
+
+  private async loadEvents(): Promise<void> {
+    this.loaded = false;
+
+    try {
+      this.events = await this.eventService.getEvents(this.showArchived);
+    } catch (error) {
+      console.error('Error:', error);
+      this.snackBar.open(`Error: ${error && error.message}`);
+    }
+
+    this.loaded = true;
   }
 }
