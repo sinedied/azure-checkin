@@ -31,6 +31,10 @@ module.exports = async function (context, req, event) {
   }
 
   if (Boolean(body.assign)) {
+    if (event.passes[pass] !== null) {
+      return { status: 400, body: 'Pass already assigned' };
+    }
+
     context.log(`Attributing pass ${pass} manually`);
     event.passes[pass] = '__manually_assigned';
   } else {
