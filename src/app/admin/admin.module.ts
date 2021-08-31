@@ -7,12 +7,7 @@ import { EventEditComponent } from './event-edit.component';
 import { LocalDatePipe } from './local-date.pipe';
 
 @NgModule({
-  declarations: [
-    AdminComponent,
-    EventListComponent,
-    EventEditComponent,
-    LocalDatePipe,
-  ],
+  declarations: [AdminComponent, EventListComponent, EventEditComponent, LocalDatePipe],
   imports: [SharedModule, AdminRoutingModule],
 })
 export class AdminModule {}

@@ -10,23 +10,10 @@ import { Event as AppEvent } from '../shared/event';
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>Flight nº</th>
         <td mat-cell *matCellDef="let event" class="no-wrap">
-          <a
-            (click)="stopPropagation($event)"
-            href="/{{ event.id }}"
-            target="_blank"
-            >{{ event.id }}</a
-          >
-          <button
-            mat-icon-button
-            matTooltip="Copy link"
-            (click)="copyLink($event, event.id)"
-          >
+          <a (click)="stopPropagation($event)" href="/{{ event.id }}" target="_blank">{{ event.id }}</a>
+          <button mat-icon-button matTooltip="Copy link" (click)="copyLink($event, event.id)">
             <mat-icon inline>content_copy</mat-icon>
-            <input
-              class="copy"
-              [id]="'event-' + event.id"
-              [value]="getLink(event.id)"
-            />
+            <input class="copy" [id]="'event-' + event.id" [value]="getLink(event.id)" />
           </button>
         </td>
       </ng-container>
@@ -39,12 +26,9 @@ import { Event as AppEvent } from '../shared/event';
       <ng-container matColumnDef="owner">
         <th mat-header-cell *matHeaderCellDef class="md">Owner</th>
         <td mat-cell *matCellDef="let event" class="md">
-          <a
-            (click)="stopPropagation($event)"
-            href="https://github.com/{{ event.owner }}"
-            target="_blank"
-            >{{ event.owner }}</a
-          >
+          <a (click)="stopPropagation($event)" href="https://github.com/{{ event.owner }}" target="_blank">
+            {{ event.owner }}
+          </a>
         </td>
       </ng-container>
 
@@ -64,17 +48,11 @@ import { Event as AppEvent } from '../shared/event';
 
       <ng-container matColumnDef="passes">
         <th mat-header-cell *matHeaderCellDef>Seats</th>
-        <td mat-cell *matCellDef="let event">
-          {{ event.usedPasses }}/{{ event.totalPasses }}
-        </td>
+        <td mat-cell *matCellDef="let event">{{ event.usedPasses }}/{{ event.totalPasses }}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr
-        mat-row
-        [routerLink]="'/admin/' + event.id"
-        *matRowDef="let event; columns: displayedColumns"
-      ></tr>
+      <tr mat-row [routerLink]="'/admin/' + event.id" *matRowDef="let event; columns: displayedColumns"></tr>
     </table>
   `,
   styles: [
@@ -119,21 +97,11 @@ import { Event as AppEvent } from '../shared/event';
   ],
 })
 export class EventListComponent implements OnInit {
-  displayedColumns: string[] = [
-    'id',
-    'name',
-    'owner',
-    'startDate',
-    'endDate',
-    'passes',
-  ];
+  displayedColumns: string[] = ['id', 'name', 'owner', 'startDate', 'endDate', 'passes'];
   loaded = false;
   events: AppEvent[] = [];
 
-  constructor(
-    private snackBar: MatSnackBar,
-    private eventService: EventService
-  ) {}
+  constructor(private snackBar: MatSnackBar, private eventService: EventService) {}
 
   async ngOnInit(): Promise<void> {
     this.loaded = false;
@@ -150,9 +118,7 @@ export class EventListComponent implements OnInit {
 
   copyLink(event: Event, eventId: string) {
     event.stopPropagation();
-    const copyText = document.getElementById(
-      `event-${eventId}`
-    ) as HTMLInputElement;
+    const copyText = document.getElementById(`event-${eventId}`) as HTMLInputElement;
     copyText.select();
     document.execCommand('copy');
 

@@ -10,11 +10,7 @@ import { UserService } from '../shared/user.service';
   template: `
     <div *ngIf="loaded; else loading">
       <app-logout *ngIf="user" redirectUrl="/{{ event.id }}"></app-logout>
-      <app-login
-        *ngIf="!user; else showPass"
-        [id]="id"
-        [eventName]="event.name"
-      ></app-login>
+      <app-login *ngIf="!user; else showPass" [id]="id" [eventName]="event.name"></app-login>
       <ng-template #showPass>
         <app-pass-card
           *ngIf="pass; else noPass"
@@ -29,10 +25,7 @@ import { UserService } from '../shared/user.service';
       <app-version></app-version>
     </div>
     <ng-template #loading>
-      <mat-progress-bar
-        class="progress"
-        mode="indeterminate"
-      ></mat-progress-bar>
+      <mat-progress-bar class="progress" mode="indeterminate"></mat-progress-bar>
     </ng-template>
   `,
   styles: [

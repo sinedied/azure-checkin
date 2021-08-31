@@ -10,19 +10,8 @@ import { PassCardComponent } from './event/pass-card.component';
 import { NoPassCardComponent } from './event/no-pass-card.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    EventComponent,
-    HomeComponent,
-    PassCardComponent,
-    NoPassCardComponent,
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    SharedModule,
-    AppRoutingModule,
-  ],
+  declarations: [AppComponent, EventComponent, HomeComponent, PassCardComponent, NoPassCardComponent],
+  imports: [BrowserModule, BrowserAnimationsModule, SharedModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],
 })

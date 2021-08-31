@@ -23,19 +23,11 @@ import { UserService } from '../shared/user.service';
             />
             <span class="hide-xs">Azure Check-In</span>
             <span class="spacer"></span>
-            <button
-              *ngIf="routerLink.isActive"
-              mat-flat-button
-              routerLink="/admin/new"
-            >
+            <button *ngIf="routerLink.isActive" mat-flat-button routerLink="/admin/new">
               <mat-icon aria-hidden="true">add</mat-icon>
               Create event
             </button>
-            <app-logout
-              *ngIf="user"
-              redirectUrl="/admin"
-              inline="true"
-            ></app-logout>
+            <app-logout *ngIf="user" redirectUrl="/admin" inline="true"></app-logout>
           </mat-toolbar>
           <router-outlet></router-outlet>
         </div>
@@ -43,8 +35,7 @@ import { UserService } from '../shared/user.service';
       <app-version></app-version>
     </div>
     <ng-template #loading>
-      <mat-progress-bar class="progress" mode="indeterminate">
-      </mat-progress-bar>
+      <mat-progress-bar class="progress" mode="indeterminate"> </mat-progress-bar>
     </ng-template>
   `,
   styles: [
@@ -100,10 +91,7 @@ export class AdminComponent implements OnInit {
   loaded = false;
   user: UserInfo | null = null;
 
-  constructor(
-    private snackBar: MatSnackBar,
-    private userService: UserService
-  ) {}
+  constructor(private snackBar: MatSnackBar, private userService: UserService) {}
 
   async ngOnInit(): Promise<void> {
     this.loaded = false;

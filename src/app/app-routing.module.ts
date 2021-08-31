@@ -6,8 +6,7 @@ import { HomeComponent } from './home.component';
 const routes: Routes = [
   {
     path: 'admin',
-    loadChildren: () =>
-      import('./admin/admin.module').then((m) => m.AdminModule),
+    loadChildren: () => import('./admin/admin.module').then((m) => m.AdminModule),
   },
   { path: 'event/:id', component: EventComponent },
   { path: ':id', component: EventComponent },
