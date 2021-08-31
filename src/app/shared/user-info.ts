@@ -3,4 +3,5 @@ export interface UserInfo {
   userId: string;
   userDetails: string;
   userRoles: string[];
+  admin: boolean;
 }

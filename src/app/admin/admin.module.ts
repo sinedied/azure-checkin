@@ -5,9 +5,10 @@ import { AdminComponent } from './admin.component';
 import { EventListComponent } from './event-list.component';
 import { EventEditComponent } from './event-edit.component';
 import { LocalDatePipe } from './local-date.pipe';
+import { UnauthorizedComponent } from './unauthorized.component';
 
 @NgModule({
-  declarations: [AdminComponent, EventListComponent, EventEditComponent, LocalDatePipe],
+  declarations: [AdminComponent, EventListComponent, EventEditComponent, LocalDatePipe, UnauthorizedComponent],
   imports: [SharedModule, AdminRoutingModule],
 })
 export class AdminModule {}

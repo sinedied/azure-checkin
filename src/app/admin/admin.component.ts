@@ -7,10 +7,10 @@ import { UserService } from '../shared/user.service';
   selector: 'app-admin',
 
   template: `
-    <div *ngIf="loaded; else loading" [class.container]="user">
+    <div *ngIf="loaded; else loading" [class.container]="user && user.admin">
       <app-login *ngIf="!user; else showAdmin"></app-login>
       <ng-template #showAdmin>
-        <div class="main">
+        <div class="main" *ngIf="user!.admin; else unauthorized">
           <mat-toolbar color="primary">
             <img
               class="logo"
@@ -31,6 +31,10 @@ import { UserService } from '../shared/user.service';
           </mat-toolbar>
           <router-outlet></router-outlet>
         </div>
+        <ng-template #unauthorized>
+          <app-logout redirectUrl="/admin"></app-logout>
+          <app-unauthorized></app-unauthorized>
+        </ng-template>
       </ng-template>
       <app-version></app-version>
     </div>
