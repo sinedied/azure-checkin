@@ -34,7 +34,7 @@ x-ms-client-principal: eyAidXNlcklkIjogIjEyMyIsICJ1c2VyRGV0YWlscyI6ICJzaW5lZGllZ
 
 ###
 
-PATCH http://localhost:7071/api/events/tst210623/passes/123456
+PUT http://localhost:7071/api/events/tst210623/passes/123456
 x-ms-client-principal: eyAidXNlcklkIjogIjEyMyIsICJ1c2VyRGV0YWlscyI6ICJzaW5lZGllZCIgfQ==
 content-type: application/json
 
