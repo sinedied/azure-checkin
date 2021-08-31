@@ -34,20 +34,37 @@ export class EventService {
     });
   }
 
-  async freePass(eventId: string, userId: string) {}
+  async assignPass(eventId: string, pass: string, assign: boolean = false) {
+    return this.fetch(`/api/events/${eventId}/passes/${pass}`, {
+      method: 'PUT',
+      body: JSON.stringify({ assign }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
 
   async getPass(eventId: string) {
     const url = `/api/events/${encodeURIComponent(eventId)}/pass`;
     return this.fetch(url);
   }
 
-  private async fetch(options: RequestInfo, init?: RequestInit) {
+  private async fetch(options: RequestInfo, init?: RequestInit): Promise<any> {
     const response = await fetch(options, init);
 
     if (!response.ok) {
-      throw new HttpError(response);
+      let message = undefined;
+      try {
+        message = await response.text();
+      } catch {}
+      throw new HttpError(response, message);
     }
 
-    return await response.json();
+    let result = null;
+    try {
+      result = await response.json();
+    } catch {}
+
+    return result;
   }
 }

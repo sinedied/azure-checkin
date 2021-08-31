@@ -8,5 +8,5 @@ export interface Event {
   archived: boolean;
   usedPasses: number;
   totalPasses: number;
-  passes?: { [key: string]: string };
+  passes?: { [key: string]: string | null };
 }

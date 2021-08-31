@@ -10,7 +10,12 @@ import { EventService, NewEvent } from '../shared/event.service';
   template: `
     <div class="container">
       <mat-toolbar class="mat-elevation-z3">
-        <button mat-icon-button matTooltip="Go back to list" routerLink="..">
+        <button
+          class="back"
+          mat-icon-button
+          matTooltip="Go back to list"
+          routerLink=".."
+        >
           <mat-icon aria-hidden="true">arrow_back</mat-icon>
         </button>
         <div class="text-ellipsis">
@@ -110,7 +115,7 @@ import { EventService, NewEvent } from '../shared/event.service';
               </div>
             </div>
             <mat-form-field class="passes">
-              <mat-label>Azure Passes</mat-label>
+              <mat-label>{{ isNew() ? '' : 'Add' }} Azure passes</mat-label>
               <textarea
                 rows="10"
                 matInput
@@ -119,6 +124,47 @@ import { EventService, NewEvent } from '../shared/event.service';
               ></textarea>
               <mat-hint>Put 1 pass by line</mat-hint>
             </mat-form-field>
+            <div *ngIf="!isNew()">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title> Azure passes </mat-panel-title>
+                  <mat-panel-description>
+                    Expand to view and update pass attribution
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div role="list">
+                  <div class="item" role="listitem" *ngFor="let pass of passes">
+                    <code>{{ pass[0] }}</code>
+                    <mat-icon>
+                      {{
+                        pass[1]
+                          ? 'check_circle_outline'
+                          : 'radio_button_unchecked'
+                      }}
+                    </mat-icon>
+                    <div class="text-ellipsis hash hide-xs">
+                      {{ pass[1] || '' }}
+                    </div>
+                    <span class="spacer"></span>
+                    <button
+                      mat-button
+                      color="warn"
+                      *ngIf="pass[1]; else setManually"
+                      (click)="assignPass(pass[0], false)"
+                    >
+                      <span class="hide-xs">Clear attribution</span>
+                      <mat-icon mat-icon>clear</mat-icon>
+                    </button>
+                    <ng-template #setManually>
+                      <button mat-button (click)="assignPass(pass[0], true)">
+                        <span class="hide-xs">Attribute manually</span>
+                        <mat-icon>check</mat-icon>
+                      </button>
+                    </ng-template>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </div>
           </form>
         </mat-card>
       </div>
@@ -132,7 +178,7 @@ import { EventService, NewEvent } from '../shared/event.service';
         color: #444;
         z-index: 100;
       }
-      .mat-icon-button {
+      .back {
         margin-right: 0.5em;
       }
       .mat-stroked-button {
@@ -172,6 +218,26 @@ import { EventService, NewEvent } from '../shared/event.service';
       .mat-icon-inline {
         vertical-align: bottom;
       }
+      .mat-expansion-panel {
+        background: #f9f9f9;
+      }
+      .item {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5em;
+        padding-left: 0.5em;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.05);
+        }
+      }
+      .hash {
+        flex: 1 1 200px;
+        opacity: 0.5;
+        max-width: 200px;
+      }
 
       @media screen and (min-width: 768px) {
         .form-line {
@@ -202,6 +268,7 @@ export class EventEditComponent implements OnInit {
     editPrefix: new FormControl(false),
     passes: new FormControl('', [Validators.required]),
   });
+  passes: [string, string | null][] | null = null;
 
   constructor(
     private router: Router,
@@ -226,9 +293,13 @@ export class EventEditComponent implements OnInit {
           name: this.event.name,
           startDate: this.event.startDate,
           endDate: this.event.endDate,
-          passes: Object.keys(this.event.passes || {}).join('\n'),
         });
-        this.eventForm.enable();
+        this.eventForm.controls.passes.setValidators(null);
+        this.passes = Object.entries(this.event.passes || {});
+
+        if (!this.event.archived && !this.event.locked) {
+          this.eventForm.enable();
+        }
       } catch (error) {
         console.error('Error:', error);
         this.snackBar.open(`Error: ${error && error.message}`);
@@ -260,6 +331,25 @@ export class EventEditComponent implements OnInit {
     if (!this.eventForm.controls.editPrefix.value) {
       const prefix = this.generatePrefix();
       this.eventForm.controls.prefix.setValue(prefix);
+    }
+  }
+
+  async assignPass(pass: string, assign: boolean = false): Promise<void> {
+    const eventPasses = this.event!.passes!;
+    const previousAssignment = eventPasses[pass];
+    // Optimistic update
+    this.event!.passes![pass] = assign ? '__manually_assigned__' : null;
+    this.passes = Object.entries(eventPasses);
+
+    try {
+      await this.eventService.assignPass(this.id, pass, assign);
+    } catch (error) {
+      // Revert in case of failure
+      eventPasses[pass] = previousAssignment;
+      this.passes = Object.entries(eventPasses);
+
+      console.error('Error:', error);
+      this.snackBar.open(`Error: ${error && error.message}`);
     }
   }
 
