@@ -23,7 +23,46 @@ const createEntityFromEvent = (event, owner) => ({
   deleted: false,
 });
 
+function updateEntityFromData(eventEntity, data) {
+  const updatedEvent = { ...eventEntity };
+
+  if (data.name !== undefined) {
+    updatedEvent.name = data.name;
+  }
+
+  if (data.startDate !== undefined) {
+    updatedEvent.startDate = data.startDate;
+  }
+
+  if (data.endDate !== undefined) {
+    updatedEvent.endDate = data.endDate;
+  }
+
+  if (data.passes !== undefined) {
+    const newPasses = Object.fromEntries(
+      data.passes.filter((pass) => eventEntity.passes[pass] === undefined).map((pass) => [pass, null])
+    );
+    updatedEvent.passes = { ...eventEntity.passes, ...newPasses };
+  }
+
+  if (data.locked !== undefined) {
+    updatedEvent.locked = Boolean(data.locked);
+  }
+
+  if (data.archived !== undefined) {
+    updatedEvent.archived = Boolean(data.archived);
+
+    // An archived event is also locked and cannot be modified
+    if (updatedEvent.archived) {
+      updatedEvent.locked = true;
+    }
+  }
+
+  return updatedEvent;
+}
+
 module.exports = {
   createEventFromEntity,
   createEntityFromEvent,
+  updateEntityFromData,
 };
