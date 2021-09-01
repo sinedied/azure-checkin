@@ -5,9 +5,7 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "methods": [
-        "get"
-      ],
+      "methods": ["get"],
       "route": "events/{eventId}"
     },
     {
@@ -22,7 +20,7 @@
       "collectionName": "events",
       "connectionStringSetting": "CosmosDBConnectionString",
       "direction": "in",
-      "Id": "{eventId}",
+      "id": "{eventId}",
       "PartitionKey": "{eventId}"
     }
   ]
