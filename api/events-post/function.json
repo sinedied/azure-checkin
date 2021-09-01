@@ -20,7 +20,7 @@
       "collectionName": "events",
       "connectionStringSetting": "CosmosDBConnectionString",
       "direction": "in",
-      "Id": "{id}",
+      "id": "{id}",
       "PartitionKey": "{id}"
     },
     {
