@@ -1,3 +1,8 @@
+http://localhost:7071/api/users/me
+x-ms-client-principal: eyAidXNlcklkIjogIjEyMyIsICJ1c2VyRGV0YWlscyI6ICJzaW5lZGllZCIgfQ==
+
+###
+
 http://localhost:7071/api/events/swc210622
 
 ###
@@ -15,6 +20,7 @@ http://localhost:7071/api/events
 x-ms-client-principal: eyAidXNlcklkIjogIjEyMyIsICJ1c2VyRGV0YWlscyI6ICJzaW5lZGllZCIgfQ==
 
 ###
+
 POST http://localhost:7071/api/events
 x-ms-client-principal: eyAidXNlcklkIjogIjEyMyIsICJ1c2VyRGV0YWlscyI6ICJzaW5lZGllZCIgfQ==
 content-type: application/json
@@ -44,5 +50,14 @@ content-type: application/json
 
 ###
 
-http://localhost:7071/api/users/me
+PATCH http://localhost:7071/api/events/tst210623
 x-ms-client-principal: eyAidXNlcklkIjogIjEyMyIsICJ1c2VyRGV0YWlscyI6ICJzaW5lZGllZCIgfQ==
+content-type: application/json
+
+{
+  "name": "TestConfP",
+  "startDate": "2021-08-30T00:00:00",
+  "endDate": "2021-09-01T00:00:00",
+  "passes": ["963123", "789123"],
+  "locked": false
+}
