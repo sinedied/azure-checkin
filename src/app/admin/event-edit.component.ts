@@ -21,7 +21,7 @@ import { EventService, NewEvent } from '../shared/event.service';
           *ngIf="!this.isNew()"
           mat-button
           color="warn"
-          [disabled]="!event || !event.locked"
+          [disabled]="!event || !event.locked || event.archived"
           matTooltip="Archive event"
         >
           <mat-icon aria-hidden="true">archive</mat-icon>
@@ -91,11 +91,13 @@ import { EventService, NewEvent } from '../shared/event.service';
               ></textarea>
               <mat-hint>Put 1 pass by line</mat-hint>
             </mat-form-field>
-            <div *ngIf="!isNew()">
+            <div *ngIf="!isNew() && event">
               <mat-expansion-panel>
                 <mat-expansion-panel-header>
                   <mat-panel-title> Azure passes </mat-panel-title>
-                  <mat-panel-description> Expand to view and update pass attribution </mat-panel-description>
+                  <mat-panel-description>
+                    Expand to view {{ !event.locked ? 'and update' : '' }} attribution
+                  </mat-panel-description>
                 </mat-expansion-panel-header>
                 <div role="list">
                   <div class="item" role="listitem" *ngFor="let pass of passes">
@@ -110,18 +112,16 @@ import { EventService, NewEvent } from '../shared/event.service';
                     <button
                       mat-button
                       color="warn"
-                      *ngIf="pass[1]; else setManually"
+                      *ngIf="!event.locked && pass[1]"
                       (click)="assignPass(pass[0], false)"
                     >
                       <span class="hide-xs">Clear attribution</span>
                       <mat-icon mat-icon>clear</mat-icon>
                     </button>
-                    <ng-template #setManually>
-                      <button mat-button (click)="assignPass(pass[0], true)">
-                        <span class="hide-xs">Attribute manually</span>
-                        <mat-icon>check</mat-icon>
-                      </button>
-                    </ng-template>
+                    <button mat-button *ngIf="!event.locked && !pass[1]" (click)="assignPass(pass[0], true)">
+                      <span class="hide-xs">Attribute manually</span>
+                      <mat-icon>check</mat-icon>
+                    </button>
                   </div>
                 </div>
               </mat-expansion-panel>
