@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "azure-cantina": {
+    "azure-checkin": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -41,19 +41,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/azure-cantina",
+            "outputPath": "dist/azure-checkin",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.png",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.png", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -93,10 +88,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "azure-cantina:build:production"
+              "browserTarget": "azure-checkin:build:production"
             },
             "development": {
-              "browserTarget": "azure-cantina:build:development"
+              "browserTarget": "azure-checkin:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -104,22 +99,19 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "azure-cantina:build"
+            "browserTarget": "azure-checkin:build"
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }
     }
   },
-  "defaultProject": "azure-cantina",
+  "defaultProject": "azure-checkin",
   "cli": {
     "defaultCollection": "@angular-eslint/schematics"
   }
