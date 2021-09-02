@@ -84,7 +84,9 @@ import { Event as AppEvent } from '../shared/event';
         top: -9999px;
       }
       .mat-table {
+        position: relative;
         width: 100%;
+        z-index: 10;
       }
       .mat-cell,
       .mat-header-cell {
