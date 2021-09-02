@@ -53,7 +53,7 @@ export class EventService {
     });
   }
 
-  async patchEventLock(eventId: string, event: EventPatch): Promise<Event> {
+  async patchEvent(eventId: string, event: EventPatch): Promise<Event> {
     return this.fetch(`/api/events/${eventId}`, {
       method: 'PATCH',
       body: JSON.stringify(event),
