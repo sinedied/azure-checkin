@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Event } from '../shared/event';
-import { EventService, NewEvent } from '../shared/event.service';
+import { EventPatch, EventService, NewEvent } from '../shared/event.service';
 
 @Component({
   selector: 'app-event-edit',
@@ -257,24 +257,7 @@ export class EventEditComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id') || 'new';
 
     if (!this.isNew()) {
-      try {
-        this.eventForm.disable();
-        this.event = await this.eventService.getEvent(this.id, true);
-        this.eventForm.patchValue({
-          name: this.event.name,
-          startDate: this.event.startDate,
-          endDate: this.event.endDate,
-        });
-        this.eventForm.controls.passes.setValidators(null);
-        this.passes = Object.entries(this.event.passes || {});
-
-        if (!this.event.archived && !this.event.locked) {
-          this.eventForm.enable();
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        this.snackBar.open(`Error: ${error && error.message}`);
-      }
+      this.loadEvent();
     }
 
     this.loaded = true;
@@ -360,6 +343,31 @@ export class EventEditComponent implements OnInit {
     }
   }
 
+  private async loadEvent(): Promise<void> {
+    this.loaded = false;
+    try {
+      this.eventForm.disable();
+      this.event = await this.eventService.getEvent(this.id, true);
+      this.eventForm.patchValue({
+        name: this.event.name,
+        startDate: this.event.startDate,
+        endDate: this.event.endDate,
+      });
+      this.eventForm.controls.passes.setValidators(null);
+      this.eventForm.controls.passes.reset();
+      this.passes = Object.entries(this.event.passes || {});
+      this.eventForm.markAsPristine();
+
+      if (!this.event.archived && !this.event.locked) {
+        this.eventForm.enable();
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      this.snackBar.open(`Error: ${error && error.message}`);
+    }
+    this.loaded = true;
+  }
+
   private async saveNewEvent(): Promise<void> {
     this.loaded = false;
     this.eventForm.disable();
@@ -386,7 +394,37 @@ export class EventEditComponent implements OnInit {
     this.loaded = true;
   }
 
-  private async updateEvent(): Promise<void> {}
+  private async updateEvent(): Promise<void> {
+    this.loaded = false;
+    this.eventForm.disable();
+    try {
+      const formData = this.eventForm.value;
+      const eventPatch: EventPatch = {};
+      if (this.eventForm.controls.name.dirty) {
+        eventPatch.name = formData.name;
+      }
+      if (this.eventForm.controls.startDate.dirty) {
+        eventPatch.startDate = this.dateToUtcString(formData.startDate);
+      }
+      if (this.eventForm.controls.endDate.dirty) {
+        eventPatch.endDate = this.dateToUtcString(formData.endDate);
+      }
+      if (this.eventForm.controls.passes.dirty && formData.passes) {
+        eventPatch.passes = formData.passes
+          .split('\n')
+          .filter((pass: string) => pass)
+          .map((pass: string) => pass.trim());
+      }
+      await this.eventService.patchEvent(this.id, eventPatch);
+      this.snackBar.open(`Event ${eventPatch.name} successfully updated.`);
+    } catch (error) {
+      console.error('Error:', error);
+      this.snackBar.open(`Error: ${error && error.message}`);
+    }
+    this.eventForm.enable();
+    this.loaded = true;
+    return this.loadEvent();
+  }
 
   private dateToUtcString(date: Date): string {
     const offset = date.getTimezoneOffset();
