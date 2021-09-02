@@ -23,6 +23,7 @@ import { EventService, NewEvent } from '../shared/event.service';
           color="warn"
           [disabled]="!event || !event.locked || event.archived"
           matTooltip="Archive event"
+          (click)="archiveEvent()"
         >
           <mat-icon aria-hidden="true">archive</mat-icon>
           <span class="hide-xs">Archive</span>
@@ -32,6 +33,7 @@ import { EventService, NewEvent } from '../shared/event.service';
           mat-button
           [disabled]="!event || event.archived"
           matTooltip="{{ event?.locked ? 'Unlock' : 'Lock' }} event"
+          (click)="toggleEventLock()"
         >
           <mat-icon aria-hidden="true">
             {{ event?.locked ? 'lock_open' : 'lock' }}
@@ -48,6 +50,10 @@ import { EventService, NewEvent } from '../shared/event.service';
           <span class="hide-xs">Save</span>
         </button>
       </mat-toolbar>
+      <div *ngIf="!loaded">
+        <mat-progress-bar class="progress" mode="indeterminate"> </mat-progress-bar>
+      </div>
+      <div class="archived" *ngIf="loaded && event?.archived">This event is archived and cannot be modified.</div>
       <div class="card-wrapper">
         <mat-card>
           <form [formGroup]="eventForm" (ngSubmit)="saveEvent()">
@@ -133,6 +139,9 @@ import { EventService, NewEvent } from '../shared/event.service';
   `,
   styles: [
     `
+      @use '~@angular/material' as mat;
+      @use './src/theme' as *;
+
       .mat-toolbar {
         position: relative;
         font-size: 1em;
@@ -144,6 +153,12 @@ import { EventService, NewEvent } from '../shared/event.service';
       }
       .mat-stroked-button {
         margin-left: 0.5em;
+      }
+      .archived {
+        padding: 0.25em 0.5em;
+        text-align: center;
+        background: mat.get-color-from-palette($azure-checkin-warn, 500);
+        color: #fff;
       }
       .container {
         position: relative;
@@ -305,16 +320,50 @@ export class EventEditComponent implements OnInit {
     }
   }
 
+  async archiveEvent(): Promise<void> {
+    this.loaded = false;
+    try {
+      const event = this.event!;
+      this.eventForm.disable();
+      event.archived = true;
+      event.locked = true;
+      await this.eventService.archiveEvent(this.id);
+    } catch (error) {
+      console.error('Error:', error);
+      this.snackBar.open(`Error: ${error && error.message}`);
+    }
+    this.loaded = true;
+  }
+
+  async toggleEventLock(): Promise<void> {
+    this.loaded = false;
+    const event = this.event!;
+    try {
+      this.eventForm.disable();
+      event.locked = !event.locked;
+      await this.eventService.setEventLock(this.id, event.locked);
+    } catch (error) {
+      console.error('Error:', error);
+      this.snackBar.open(`Error: ${error && error.message}`);
+    }
+    if (!event.locked) {
+      this.eventForm.enable();
+    }
+    this.loaded = true;
+  }
+
   async saveEvent(): Promise<void> {
     if (this.isNew()) {
       this.saveNewEvent();
+    } else {
+      this.updateEvent();
     }
   }
 
   private async saveNewEvent(): Promise<void> {
+    this.loaded = false;
+    this.eventForm.disable();
     try {
-      this.loaded = false;
-      this.eventForm.disable();
       const formData = this.eventForm.value;
       const newEvent: NewEvent = {
         id: formData.prefix + this.getDateSuffix(),
@@ -336,6 +385,8 @@ export class EventEditComponent implements OnInit {
     this.eventForm.enable();
     this.loaded = true;
   }
+
+  private async updateEvent(): Promise<void> {}
 
   private dateToUtcString(date: Date): string {
     const offset = date.getTimezoneOffset();
