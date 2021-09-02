@@ -104,7 +104,7 @@ import { UserService } from '../shared/user.service';
 
       @media screen and (min-width: 768px) {
         .main {
-          padding: 20px 20px 0 20px;
+          padding: 20px 20px 42px 20px;
         }
       }
     `,
