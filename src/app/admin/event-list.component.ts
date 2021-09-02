@@ -52,6 +52,14 @@ import { Event as AppEvent } from '../shared/event';
         <td mat-cell *matCellDef="let event">{{ event.usedPasses }}/{{ event.totalPasses }}</td>
       </ng-container>
 
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let event" class="status">
+          <mat-icon inline *ngIf="event.locked">lock</mat-icon>
+          <mat-icon inline *ngIf="event.archived">archive</mat-icon>
+        </td>
+      </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row [routerLink]="'/admin/' + event.id" *matRowDef="let event; columns: displayedColumns"></tr>
     </table>
@@ -97,6 +105,9 @@ import { Event as AppEvent } from '../shared/event';
         padding: 20px;
         text-align: center;
       }
+      .status {
+        width: 20px;
+      }
 
       @media screen and (max-width: 768px) {
         .md {
@@ -107,7 +118,7 @@ import { Event as AppEvent } from '../shared/event';
   ],
 })
 export class EventListComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'owner', 'startDate', 'endDate', 'passes'];
+  displayedColumns: string[] = ['id', 'name', 'owner', 'startDate', 'endDate', 'passes', 'status'];
   loaded = false;
   showArchived: boolean = false;
   events: AppEvent[] = [];
