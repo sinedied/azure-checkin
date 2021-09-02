@@ -35,7 +35,7 @@ import { UserService } from '../shared/user.service';
               [checked]="archived"
               (change)="toggleArchived()"
             >
-              Archived
+              <span class="hide-xs">Archived</span>
             </mat-slide-toggle>
             <button *ngIf="routerLink.isActive" mat-flat-button routerLink="/admin/new" matTooltip="Create event">
               <mat-icon aria-hidden="true">add</mat-icon>
