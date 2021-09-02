@@ -10,6 +10,13 @@ export interface NewEvent {
   passes: string[];
 }
 
+export interface EventPatch {
+  name?: string;
+  startDate?: string;
+  endDate?: string;
+  passes?: string[];
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -26,9 +33,31 @@ export class EventService {
     return this.fetch('/api/events', {
       method: 'POST',
       body: JSON.stringify(event),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  async archiveEvent(eventId: string): Promise<void> {
+    return this.fetch(`/api/events/${eventId}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ archived: true }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  async setEventLock(eventId: string, locked: boolean): Promise<void> {
+    return this.fetch(`/api/events/${eventId}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ locked }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  async patchEventLock(eventId: string, event: EventPatch): Promise<Event> {
+    return this.fetch(`/api/events/${eventId}`, {
+      method: 'PATCH',
+      body: JSON.stringify(event),
+      headers: { 'Content-Type': 'application/json' },
     });
   }
 
@@ -36,9 +65,7 @@ export class EventService {
     return this.fetch(`/api/events/${eventId}/passes/${pass}`, {
       method: 'PUT',
       body: JSON.stringify({ assign }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
     });
   }
 
