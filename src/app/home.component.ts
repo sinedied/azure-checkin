@@ -28,6 +28,9 @@ import { EventService } from './shared/event.service';
   `,
   styles: [
     `
+      @use '~@angular/material' as mat;
+      @use './src/theme' as *;
+
       :host {
         display: flex;
         height: 100%;
@@ -46,7 +49,7 @@ import { EventService } from './shared/event.service';
         background: #fff;
       }
       .error {
-        color: red;
+        color: mat.get-color-from-palette($azure-checkin-warn, 500);
       }
     `,
   ],

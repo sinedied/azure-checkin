@@ -20,6 +20,9 @@ import { Component, Input } from '@angular/core';
   `,
   styles: [
     `
+      @use '~@angular/material' as mat;
+      @use './src/theme' as *;
+
       .sad {
         > .mat-icon {
           font-size: 3em;
@@ -32,7 +35,7 @@ import { Component, Input } from '@angular/core';
         border-radius: 0;
       }
       .error {
-        color: red;
+        color: mat.get-color-from-palette($azure-checkin-warn, 500);
       }
     `,
   ],
