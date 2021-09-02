@@ -58,7 +58,7 @@ import { Event } from '../shared/event';
           matRipple
           class="button"
           target="_blank"
-          href="https://www.microsoftazurepass.com/?WT.mc_id=javascript-32417-yolasors"
+          href="https://www.microsoftazurepass.com/?WT.mc_id=javascript-32417-cxa"
         >
           <mat-icon inline>login</mat-icon>
           Get on board with Azure
@@ -66,20 +66,11 @@ import { Event } from '../shared/event';
       </div>
     </div>
     <div class="instructions">
-      <p>To create an Azure account with your pass, first make sure that:</p>
-      <ul>
-        <li>
-          You have a Microsoft account. You can create one on
-          <a href="http://account.microsoft.com?WT.mc_id=javascript-32417-yolasors" target="_blank">
-            account.microsoft.com
-          </a>
-        </li>
-        <li>
-          Your Microsoft account was NEVER used for another Azure subscription.<br />
-          If you ever activated a Free Azure Trial with this account, you won't be able to use the Azure Pass. In that
-          case, you need to create a new Microsoft account.
-        </li>
-      </ul>
+      <p>
+        To activate an Azure account with your pass, first make sure that you have a Microsoft account. You can create
+        one at
+        <a href="http://account.microsoft.com?WT.mc_id=javascript-32417-cxa" target="_blank">account.microsoft.com</a>.
+      </p>
     </div>
   `,
   styles: [
