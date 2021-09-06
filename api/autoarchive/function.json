@@ -1,0 +1,27 @@
+{
+  "bindings": [
+    {
+      "schedule": "0 1 * * * *",
+      "name": "timer",
+      "type": "timerTrigger",
+      "direction": "in"
+    },
+    {
+      "type": "cosmosDB",
+      "name": "events",
+      "databaseName": "cantinadb",
+      "collectionName": "events",
+      "connectionStringSetting": "CosmosDBConnectionString",
+      "direction": "in",
+      "sqlQuery": "SELECT * FROM e WHERE (e.deleted != true AND e.archived != true AND DateTimeDiff(\"dd\", e.endDate, GetCurrentDateTime()) >= 30)"
+    },
+    {
+      "type": "cosmosDB",
+      "name": "updatedEvents",
+      "databaseName": "cantinadb",
+      "collectionName": "events",
+      "connectionStringSetting": "CosmosDBConnectionString",
+      "direction": "out"
+    }
+  ]
+}

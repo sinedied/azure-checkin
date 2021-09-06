@@ -1,5 +1,5 @@
-module.exports = async function (context, events) {
-  context.log(`Running autolock procedure at ${new Date().toISOString()}`);
+module.exports = async function (context, timer, events) {
+  context.log(`Running auto-lock procedure at ${new Date().toISOString()}`);
 
   if (!events || !events.length) {
     context.log(`No events to lock, aborting`);
