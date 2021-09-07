@@ -5,9 +5,7 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "methods": [
-        "get"
-      ],
+      "methods": ["get"],
       "route": "events"
     },
     {
@@ -21,7 +19,8 @@
       "databaseName": "cantinadb",
       "collectionName": "events",
       "connectionStringSetting": "CosmosDBConnectionString",
-      "direction": "in"
+      "direction": "in",
+      "sqlQuery": "SELECT * FROM e WHERE (e.deleted != true)"
     }
   ]
 }
