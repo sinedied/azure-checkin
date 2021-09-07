@@ -43,7 +43,7 @@ ymlFiles.forEach((file) => {
       console.error(`Incorrect GitHub URL format: ${github.url}`);
       return;
     }
-    usernames.push(match[1]);
+    usernames.push(match[1].toLowerCase());
   } catch (e) {
     console.error(`An error occurred while reading file ${file}: ${e}`);
   }
