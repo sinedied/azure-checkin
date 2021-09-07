@@ -32,5 +32,5 @@ import { environment } from '../../environments/environment';
   ],
 })
 export class VersionComponent {
-  version: string = environment.version;
+  version: string = environment.version!;
 }
