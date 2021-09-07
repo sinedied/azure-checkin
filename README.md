@@ -6,18 +6,18 @@ You can access the deployed production website at https://azcheck.in.
 
 ## Stack
 
-This app is build on a full serverless model, using [Angular](https://angular.io/) for the frontend, [Azure Functions](https://azure.microsoft.com/services/functions/) for the backend, [Azure Cosmos DB](https://azure.microsoft.com/services/cosmos-db/) for the database and [Azure Static Web Apps](https://azure.microsoft.com/services/app-service/static/) for the hosting.
+This app is build on a full serverless model, using [Angular](https://angular.io/) for the frontend, [Azure Functions](https://azure.microsoft.com/services/functions/?WT.mc_id=javascript-6489-yolasors) for the backend, [Azure Cosmos DB](https://azure.microsoft.com/services/cosmos-db/?WT.mc_id=javascript-6489-yolasors) for the database and [Azure Static Web Apps](https://azure.microsoft.com/services/app-service/static/?WT.mc_id=javascript-6489-yolasors) for the hosting.
 
 You can learn more about serverless apps and static web apps with these resources:
 
-- [Create serverless apps](https://docs.microsoft.com/learn/paths/create-serverless-applications/) (tutorials)
+- [Create serverless apps](https://docs.microsoft.com/learn/paths/create-serverless-applications/?WT.mc_id=javascript-6489-yolasors) (tutorials)
 - [Beginner's Series to Serverless](https://aka.ms/serverless-series) (videos)
-- [Learn Azure Static Web Apps](https://docs.microsoft.com/learn/paths/azure-static-web-apps/) (tutorials)
+- [Learn Azure Static Web Apps](https://docs.microsoft.com/learn/paths/azure-static-web-apps/?WT.mc_id=javascript-6489-yolasors) (tutorials)
 - [Azure Static Web Apps Tips & Tricks](https://aka.ms/StaticWebAppsTips) (videos)
 
 ## Development
 
-You need to have at least a deployed [Cosmos DB instance](https://azure.microsoft.com/services/cosmos-db/) to work on this app. You can create a free trial Cosmos DB instance for testing [using this link](https://azure.microsoft.com/try/cosmosdb/).
+You need to have at least a deployed [Cosmos DB instance](https://azure.microsoft.com/services/cosmos-db/?WT.mc_id=javascript-6489-yolasors) to work on this app. You can create a free trial Cosmos DB instance for testing [using this link](https://azure.microsoft.com/try/cosmosdb/?WT.mc_id=javascript-6489-yolasors).
 
 1. Clone this repository on your local machine.
 1. Run `npm install` to install all dependencies.
@@ -40,4 +40,4 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## Deployment
 
-To deploy this app on Azure, you need to have an [Azure subscription](https://azure.microsoft.com/free/).
+To deploy this app on Azure, you need to have an [Azure subscription](https://azure.microsoft.com/free/?WT.mc_id=javascript-6489-yolasors).
