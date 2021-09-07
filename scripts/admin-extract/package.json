@@ -1,0 +1,19 @@
+{
+  "name": "admin-extract",
+  "version": "1.0.0",
+  "description": "Updates administrators.json list from azure advocate repository",
+  "private": true,
+  "type": "module",
+  "main": "extract.js",
+  "scripts": {
+    "start": "node extract.js"
+  },
+  "keywords": [],
+  "author": "Yohan Lasorsa",
+  "license": "MIT",
+  "dependencies": {
+    "degit": "^2.8.4",
+    "globby": "^12.0.2",
+    "js-yaml": "^4.1.0"
+  }
+}
