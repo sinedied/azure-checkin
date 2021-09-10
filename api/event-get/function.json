@@ -16,7 +16,7 @@
     {
       "type": "cosmosDB",
       "name": "event",
-      "databaseName": "cantinadb",
+      "databaseName": "CosmosDBDatabaseName",
       "collectionName": "events",
       "connectionStringSetting": "CosmosDBConnectionString",
       "direction": "in",
