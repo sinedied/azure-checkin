@@ -2,6 +2,10 @@
 
 > A streamlined onboarding experience with Azure Pass for your events.
 
+<p align="center">
+  <img src="https://github.com/sinedied/azure-checkin/blob/bicep/src/assets/twitter-banner.jpg?raw=true" alt="azure boarding pass"/>
+<p>
+
 You can access the deployed production website at https://azcheck.in.
 
 ## Stack
