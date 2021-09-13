@@ -16,7 +16,7 @@
     {
       "type": "cosmosDB",
       "name": "event",
-      "databaseName": "CosmosDBDatabaseName",
+      "databaseName": "%CosmosDBDatabaseName%",
       "collectionName": "events",
       "connectionStringSetting": "CosmosDBConnectionString",
       "direction": "in",
@@ -26,7 +26,7 @@
     {
       "type": "cosmosDB",
       "name": "updatedEvent",
-      "databaseName": "CosmosDBDatabaseName",
+      "databaseName": "%CosmosDBDatabaseName%",
       "collectionName": "events",
       "connectionStringSetting": "CosmosDBConnectionString",
       "direction": "out"
