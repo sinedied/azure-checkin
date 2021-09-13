@@ -1,3 +1,5 @@
+## [1.0.1](https://github.com/sinedied/azure-checkin/compare/1.0.0...1.0.1) (2021-09-13)
+
 # 1.0.0 (2021-09-07)
 
 ### Bug Fixes
