@@ -1,3 +1,9 @@
+## [1.0.2](https://github.com/sinedied/azure-checkin/compare/1.0.1...1.0.2) (2021-09-13)
+
+### Bug Fixes
+
+- missing config special chars ([ebf516b](https://github.com/sinedied/azure-checkin/commit/ebf516bbe48343277fd0752df4e557a9ca18c142))
+
 ## [1.0.1](https://github.com/sinedied/azure-checkin/compare/1.0.0...1.0.1) (2021-09-13)
 
 # 1.0.0 (2021-09-07)
