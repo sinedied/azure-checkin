@@ -40,4 +40,8 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## Deployment
 
-To deploy this app on Azure, you need to have an [Azure subscription](https://azure.microsoft.com/free/?WT.mc_id=javascript-6489-yolasors).
+To deploy this app on Azure, you need to have an [Azure subscription](https://azure.microsoft.com/free/?WT.mc_id=javascript-6489-yolasors), and the [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli?WT.mc_id=javascript-6489-yolasors).
+
+The script `scripts/deployment/create-infra.sh` will create all Azure resources needed to deploy this app, using [Bicep](https://docs.microsoft.com/azure/azure-resource-manager/bicep/overview?WT.mc_id=javascript-6489-yolasors) templates.
+
+(WIP)
