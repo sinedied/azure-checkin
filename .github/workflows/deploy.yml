@@ -1,17 +1,19 @@
-name: Azure Static Web Apps CI/CD
+name: Azure CI/CD
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
-    branches:
-      - main
+
+env:
+  AZURE_FUNCTIONAPP_NAME: azcheckin-func
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: './api'
+  AZURE_STATICWEBAPP_SOURCE_PATH: '/'
+  AZURE_STATICWEBAPP_OUTPUT_PATH: 'dist/azure-checkin'
+  NODE_VERSION: '14.x'
 
 jobs:
   build_and_deploy_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
@@ -20,7 +22,7 @@ jobs:
           submodules: true
       - uses: actions/setup-node@v1
         with:
-          node-version: 14
+          node-version: ${{ env.NODE_VERSION }}
       - run: npm ci
         env:
           CI: true
@@ -28,30 +30,17 @@ jobs:
         if: success() && github.ref == 'refs/heads/main'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: Azure/functions-action@v1
+        with:
+          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
       - name: Build And Deploy
-        id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_SWA_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: 'upload'
-          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: '/' # App source code path
-          api_location: '/api' # Api source code path - optional
-          output_location: 'dist/azure-checkin' # Built app content directory - optional
-          ###### End of Repository/Build Configurations ######
-        env:
-          FUNCTIONS_WORKER_RUNTIME: node
-
-  close_pull_request_job:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
-    runs-on: ubuntu-latest
-    name: Close Pull Request Job
-    steps:
-      - name: Close Pull Request
-        id: closepullrequest
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_SWA_TOKEN }}
-          action: 'close'
+          app_location: ${{ env.AZURE_STATICWEBAPP_SOURCE_PATH }}
+          api_location: '' # Disabled as we provide our own Function App
+          output_location: ${{ env.AZURE_STATICWEBAPP_OUTPUT_PATH }}
