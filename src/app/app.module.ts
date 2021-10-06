@@ -5,12 +5,20 @@ import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EventComponent } from './event/event.component';
-import { HomeComponent } from './home.component';
+import { HomeComponent } from './home/home.component';
 import { PassCardComponent } from './event/pass-card.component';
 import { NoPassCardComponent } from './event/no-pass-card.component';
+import { PassengerComponent } from './home/passenger.component';
 
 @NgModule({
-  declarations: [AppComponent, EventComponent, HomeComponent, PassCardComponent, NoPassCardComponent],
+  declarations: [
+    AppComponent,
+    EventComponent,
+    HomeComponent,
+    PassCardComponent,
+    NoPassCardComponent,
+    PassengerComponent,
+  ],
   imports: [BrowserModule, BrowserAnimationsModule, SharedModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { EventService } from './shared/event.service';
+import { EventService } from '../shared/event.service';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-passenger',
   template: `
     <section>
       <mat-card>
         <mat-card-header>
           <mat-card-title>Azure check-in</mat-card-title>
           <mat-card-subtitle>For new passengers</mat-card-subtitle>
-          <img mat-card-avatar src="./assets/azure.svg" alt="Azure Logo" (dblclick)="goToAdmin()" />
+          <img mat-card-avatar src="./assets/azure.svg" alt="Azure Logo" />
         </mat-card-header>
         <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
           <mat-form-field>
@@ -54,7 +54,7 @@ import { EventService } from './shared/event.service';
     `,
   ],
 })
-export class HomeComponent {
+export class PassengerComponent {
   loading = false;
   error: string | null = null;
   eventForm = new FormGroup({
@@ -79,9 +79,5 @@ export class HomeComponent {
     }
 
     this.router.navigate(['/' + encodeURIComponent(eventId)]);
-  }
-
-  goToAdmin() {
-    this.router.navigate(['/admin']);
   }
 }
