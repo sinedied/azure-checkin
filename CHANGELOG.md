@@ -1,3 +1,9 @@
+# [1.1.0](https://github.com/sinedied/azure-checkin/compare/1.0.3...1.1.0) (2021-10-06)
+
+### Features
+
+- improve home page ([b327d52](https://github.com/sinedied/azure-checkin/commit/b327d52405824fd366c772b8ad0748affba80463))
+
 ## [1.0.3](https://github.com/sinedied/azure-checkin/compare/1.0.2...1.0.3) (2021-09-16)
 
 ## [1.0.2](https://github.com/sinedied/azure-checkin/compare/1.0.1...1.0.2) (2021-09-13)
