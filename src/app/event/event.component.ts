@@ -12,15 +12,9 @@ import { UserService } from '../shared/user.service';
       <app-logout *ngIf="user" redirectUrl="/{{ event.id }}"></app-logout>
       <app-login *ngIf="!user; else showPass" [id]="id" [eventName]="event.name"></app-login>
       <ng-template #showPass>
-        <app-pass-card
-          *ngIf="pass; else noPass"
-          [pass]="pass"
-          [userName]="user?.userDetails || ''"
-          [event]="event"
-        ></app-pass-card>
-        <ng-template #noPass>
-          <app-no-pass-card [eventName]="event.name"></app-no-pass-card>
-        </ng-template>
+        <app-pass-card *ngIf="pass" [pass]="pass" [userName]="user?.userDetails || ''" [event]="event"></app-pass-card>
+        <app-no-pass-card *ngIf="!pass && !locked" [eventName]="event.name"></app-no-pass-card>
+        <app-locked-card *ngIf="!pass && locked" [eventName]="event.name"></app-locked-card>
       </ng-template>
       <app-version></app-version>
     </div>
@@ -54,6 +48,7 @@ export class EventComponent implements OnInit {
   user: UserInfo | null = null;
   event: any = null;
   pass: any = null;
+  locked = false;
 
   constructor(
     private router: Router,
@@ -80,15 +75,19 @@ export class EventComponent implements OnInit {
         await this.getPass();
       }
     } catch (error) {
+      if (error.response?.status === 403) {
+        this.locked = true;
+        return;
+      }
       if (error.status !== 404) {
         console.error('Error:', error);
         this.snackBar.open(`Error: ${error && error.message}`);
       }
       this.router.navigate(['']);
       return;
+    } finally {
+      this.loaded = true;
     }
-
-    this.loaded = true;
   }
 
   private async getPass(): Promise<void> {

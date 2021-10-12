@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { PassCardComponent } from './event/pass-card.component';
 import { NoPassCardComponent } from './event/no-pass-card.component';
 import { PassengerComponent } from './home/passenger.component';
+import { LockedCardComponent } from './event/locked-card.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { PassengerComponent } from './home/passenger.component';
     PassCardComponent,
     NoPassCardComponent,
     PassengerComponent,
+    LockedCardComponent,
   ],
   imports: [BrowserModule, BrowserAnimationsModule, SharedModule, AppRoutingModule],
   providers: [],

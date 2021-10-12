@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-no-pass-card',
+  selector: 'app-locked-card',
   template: `
     <mat-card>
       <mat-card-header>
@@ -12,10 +12,9 @@ import { Component, Input } from '@angular/core';
         <mat-card-subtitle>Check-in error</mat-card-subtitle>
       </mat-card-header>
       <p class="sad">
-        <b>Sorry, this flight is fully booked, there's no seat available.</b>
+        <b>Sorry, this flight has already departed and cannot be boarded anymore.</b>
         <mat-icon inline>sentiment_very_dissatisfied</mat-icon>
       </p>
-      <p>Please contact the event organizer for more information.</p>
     </mat-card>
   `,
   styles: [
@@ -37,6 +36,6 @@ import { Component, Input } from '@angular/core';
     `,
   ],
 })
-export class NoPassCardComponent {
+export class LockedCardComponent {
   @Input() eventName: string = '';
 }
