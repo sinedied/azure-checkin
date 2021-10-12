@@ -1,3 +1,9 @@
+# [1.2.0](https://github.com/sinedied/azure-checkin/compare/1.1.0...1.2.0) (2021-10-12)
+
+### Features
+
+- show user-friendly message when event is locked ([834beaa](https://github.com/sinedied/azure-checkin/commit/834beaa7dced4865c28f4ccd4860820956618369))
+
 # [1.1.0](https://github.com/sinedied/azure-checkin/compare/1.0.3...1.1.0) (2021-10-06)
 
 ### Features
