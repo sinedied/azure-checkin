@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "scripts": {
     "ng": "ng",
-    "start": "swa start http://localhost:4200 --api ./api --run \"npm run serve\"",
+    "start": "swa start http://localhost:4200 --api-location ./api --run \"npm run serve\"",
     "serve": "npm run write:env -s && ng serve",
     "build": "npm run write:env -s && ng build",
     "watch": "npm run write:env -s && ng build --watch --configuration development",
