@@ -1,3 +1,9 @@
+## [1.2.1](https://github.com/sinedied/azure-checkin/compare/1.2.0...1.2.1) (2021-10-13)
+
+### Bug Fixes
+
+- disable unwanted auth providers ([6c85efa](https://github.com/sinedied/azure-checkin/commit/6c85efa31491febbcb49ec2195c5344407f3148f))
+
 # [1.2.0](https://github.com/sinedied/azure-checkin/compare/1.1.0...1.2.0) (2021-10-12)
 
 ### Features
