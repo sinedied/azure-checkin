@@ -11,6 +11,7 @@
     "write:env": "ngx-scripts env npm_package_version",
     "prettier": "prettier --write \"./src/**/*.{ts,js,html,scss}\"",
     "prepare": "husky install",
+    "extract-admins": "node scripts/admin-extract/extract.js",
     "prerelease:check": "semantic-release --dry-run"
   },
   "private": true,
