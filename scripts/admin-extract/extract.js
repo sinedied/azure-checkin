@@ -1,6 +1,7 @@
 import fs from 'fs';
 import os from 'os';
-import path from 'path';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';
 import { globbySync } from 'globby';
 import yaml from 'js-yaml';
@@ -13,7 +14,8 @@ import yaml from 'js-yaml';
 // 5. Add all GH usernames to admin file with dedupe
 // 6. Cleanup temp folder
 
-const adminFile = '../../api/administrators.json';
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const adminFile = path.join(__dirname, '../../api/administrators.json');
 const advocatesRepo = `github:MicrosoftDocs/cloud-developer-advocates/advocates`;
 const githubUsernameRegex = /https?:\/\/(?:www\.?)?github.com\/(.*?)\/?$/i;
 const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'extract-'));
