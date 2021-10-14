@@ -49,3 +49,9 @@ To deploy this app on Azure, you need to have an [Azure subscription](https://az
 The script `scripts/deployment/create-infra.sh` will create all Azure resources needed to deploy this app, using [Bicep](https://docs.microsoft.com/azure/azure-resource-manager/bicep/overview?WT.mc_id=javascript-6489-yolasors) templates.
 
 (WIP)
+
+## Organizer access
+
+All Cloud Advocates listed on https://github.com/MicrosoftDocs/cloud-developer-advocates are automatically added to the Organizer list using [this script](scripts/admin-extract/extract.js).
+
+If you're not on this list but would like to have organizer access, add your GitHub username to [this file](api/administrators.json) with the `"admin"` access in front of it and submit a Pull Request.
