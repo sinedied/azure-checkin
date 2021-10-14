@@ -1,3 +1,9 @@
+## [1.2.2](https://github.com/sinedied/azure-checkin/compare/1.2.1...1.2.2) (2021-10-14)
+
+### Bug Fixes
+
+- extract script paths ([2bca21e](https://github.com/sinedied/azure-checkin/commit/2bca21ebfc54255b9d99e7ac5b91a3cab0e2dcbf))
+
 ## [1.2.1](https://github.com/sinedied/azure-checkin/compare/1.2.0...1.2.1) (2021-10-13)
 
 ### Bug Fixes
