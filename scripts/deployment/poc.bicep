@@ -2,7 +2,7 @@ param prod bool = true
 param appName string = 'azcheckin'
 param githubRepo string = 'sinedied/azure-checkin'
 param githubToken string
-param domainName string = 'azcheck.in'
+param domainName string = 'azchk.in'
 param location string = resourceGroup().location
 
 var suffix = prod ? '' : uniqueString(resourceGroup().id)
@@ -102,7 +102,8 @@ resource functionApp 'Microsoft.Web/sites@2020-12-01' = {
         }
       ]
       use32BitWorkerProcess: false
-      netFrameworkVersion: 'v4.6'
+      // netFrameworkVersion: 'v4.6'
+      // localMySqlEnabled: false
       linuxFxVersion: 'Node|14'
     }
   }
@@ -116,6 +117,7 @@ resource functionApp 'Microsoft.Web/sites@2020-12-01' = {
 resource cosmosDb 'Microsoft.DocumentDB/databaseAccounts@2021-06-15' = {
   name: '${appName}-db${dashSuffix}'
   location: location
+  // tags: union({ defaultExperience: 'Core (SQL)' }, commonTags)
   tags: commonTags
   kind: 'GlobalDocumentDB'
   properties: {
@@ -245,6 +247,43 @@ resource dnsZones 'Microsoft.Network/dnszones@2018-05-01' = if (prod == false) {
       staticWebApp
     ]
   }
+  
+  // resource dnsZonesDomain 'NS@2018-05-01' = {
+  //   name: '@'
+  //   properties: {
+  //     TTL: 172800
+  //     NSRecords: [
+  //       {
+  //         nsdname: 'ns1-08.azure-dns.com.'
+  //       }
+  //       {
+  //         nsdname: 'ns2-08.azure-dns.net.'
+  //       }
+  //       {
+  //         nsdname: 'ns3-08.azure-dns.org.'
+  //       }
+  //       {
+  //         nsdname: 'ns4-08.azure-dns.info.'
+  //       }
+  //     ]
+  //   }
+  // }
+  
+  // resource dnsZonesSoa 'SOA@2018-05-01' = {
+  //   name: '@'
+  //   properties: {
+  //     TTL: 3600
+  //     SOARecord: {
+  //       email: 'azuredns-hostmaster.microsoft.com'
+  //       expireTime: 2419200
+  //       host: 'ns1-08.azure-dns.com.'
+  //       minimumTTL: 300
+  //       refreshTime: 3600
+  //       retryTime: 300
+  //       serialNumber: 1
+  //     }
+  //   }
+  // }
   
   resource dnsZonesTxt 'TXT@2018-05-01' = {
     name: '@'
