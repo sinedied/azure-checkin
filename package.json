@@ -1,6 +1,6 @@
 {
   "name": "azure-checkin",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "scripts": {
     "ng": "ng",
     "start": "swa start http://localhost:4200 --api-location ./api --run \"npm run serve\"",
