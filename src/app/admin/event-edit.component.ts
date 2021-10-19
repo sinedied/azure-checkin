@@ -97,6 +97,11 @@ import { EventPatch, EventService, NewEvent } from '../shared/event.service';
               ></textarea>
               <mat-hint>Put 1 pass by line</mat-hint>
             </mat-form-field>
+            <div *ngIf="isNew()">
+              <mat-icon inline aria-hidden="true">info</mat-icon>
+              You can request Azure passes at
+              <a href="https://requests.microsoftazurepass.com/" target="_blank">requests.microsoftazurepass.com</a>
+            </div>
             <div *ngIf="!isNew() && event">
               <mat-expansion-panel>
                 <mat-expansion-panel-header>
