@@ -1,3 +1,9 @@
+## [1.2.7](https://github.com/sinedied/azure-checkin/compare/1.2.6...1.2.7) (2021-10-19)
+
+### Bug Fixes
+
+- event creation for admins ([1f68ff6](https://github.com/sinedied/azure-checkin/commit/1f68ff6ef0c04bd1daac42e4862824f11077e4e3))
+
 ## [1.2.6](https://github.com/sinedied/azure-checkin/compare/1.2.5...1.2.6) (2021-10-19)
 
 ## [1.2.5](https://github.com/sinedied/azure-checkin/compare/1.2.4...1.2.5) (2021-10-18)
