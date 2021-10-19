@@ -54,4 +54,4 @@ The script `scripts/deployment/create-infra.sh` will create all Azure resources 
 
 All Cloud Advocates listed on https://github.com/MicrosoftDocs/cloud-developer-advocates are automatically added to the Organizer list using [this script](scripts/admin-extract/extract.js).
 
-If you're not on this list but would like to have organizer access, add your GitHub username to [this list](api/administrators.json) by clicking [here](https://github.com/sinedied/azure-checkin/edit/main/api/administrators.json) and submit a Pull Request.
+If you're not on this list but would like to have organizer access, add your GitHub username **at the top** of [this list](api/administrators.json) by clicking [here](https://github.com/sinedied/azure-checkin/edit/main/api/administrators.json) and submit a Pull Request.
