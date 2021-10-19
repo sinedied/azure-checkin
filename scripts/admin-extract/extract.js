@@ -53,19 +53,23 @@ ymlFiles.forEach((file) => {
 console.log(`Found ${usernames.length} GitHub usernames`);
 
 console.log(`Loading existing admin data...`);
-const adminData = JSON.parse(fs.readFileSync(adminFile, 'utf8'));
-console.log(`Found ${Object.keys(adminData).length} existing admins.`);
+const admins = JSON.parse(fs.readFileSync(adminFile, 'utf8'));
+console.log(`Found ${admins.length} existing admins.`);
 
 console.log(`Adding missing usernames...`);
+let existingAdmins = admins.reduce((acc, admin) => {
+  acc[admin] = true;
+  return acc;
+}, {});
 let added = 0;
 usernames.forEach((username) => {
-  if (!adminData[username]) {
-    adminData[username] = 'admin';
+  if (!existingAdmins[username]) {
+    admins.push(username);
     added++;
   }
 });
 console.log(`Added ${added} new admin(s).`);
-fs.writeFileSync(adminFile, JSON.stringify(adminData, null, 2));
+fs.writeFileSync(adminFile, JSON.stringify(admins, null, 2));
 console.log(`Updated admin file.`);
 
 fs.rmSync(tempDir, { recursive: true });
