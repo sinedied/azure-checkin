@@ -1,3 +1,9 @@
+## [1.2.10](https://github.com/sinedied/azure-checkin/compare/1.2.9...1.2.10) (2021-10-19)
+
+### Bug Fixes
+
+- admin list ([dad830d](https://github.com/sinedied/azure-checkin/commit/dad830d2df123d6c514a7c8eb52aff20f68fbfe4))
+
 ## [1.2.9](https://github.com/sinedied/azure-checkin/compare/1.2.8...1.2.9) (2021-10-19)
 
 ## [1.2.8](https://github.com/sinedied/azure-checkin/compare/1.2.7...1.2.8) (2021-10-19)
