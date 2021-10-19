@@ -1,8 +1,5 @@
 const { getUserInfo, isAdmin } = require('../helpers/auth');
-const {
-  createEventFromEntity,
-  createEntityFromEvent,
-} = require('../helpers/event');
+const { createEventFromEntity, createEntityFromEvent } = require('../helpers/event');
 
 const idPatternRegex = /^[a-z]{3}[0-9]{6}$/;
 
@@ -16,18 +13,11 @@ module.exports = async function (context, req, existingEvent) {
     return { status: 401, body: 'Unauthorized' };
   }
 
-  if (!isAdmin(userDetails, event)) {
+  if (!isAdmin(userDetails)) {
     return { status: 403, body: 'Forbidden' };
   }
 
-  if (
-    !event ||
-    !event.id ||
-    !event.name ||
-    !event.startDate ||
-    !event.endDate ||
-    !event.passes
-  ) {
+  if (!event || !event.id || !event.name || !event.startDate || !event.endDate || !event.passes) {
     return {
       status: 400,
       body: 'Missing one or more required fields',

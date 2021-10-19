@@ -22,7 +22,7 @@ function getUserInfo(req) {
 const getRole = (userDetails) => (userDetails && roles[userDetails.toLowerCase()]) || 'user';
 
 const isAdmin = (userDetails, event, role = getRole(userDetails)) =>
-  role === 'superadmin' || (role === 'admin' && event.owner === userDetails);
+  role === 'superadmin' || (role === 'admin' && (!event || event.owner === userDetails));
 
 module.exports = {
   getUserInfo,
