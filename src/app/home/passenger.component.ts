@@ -28,7 +28,7 @@ import { EventService } from '../shared/event.service';
   `,
   styles: [
     `
-      @use '~@angular/material' as mat;
+      @use '@angular/material' as mat;
       @use './src/theme' as *;
 
       :host {
@@ -64,7 +64,7 @@ export class PassengerComponent {
   constructor(private router: Router, private eventService: EventService) {}
 
   async onSubmit() {
-    const eventId = this.eventForm.controls.eventId.value;
+    const eventId = this.eventForm.controls['eventId'].value;
 
     try {
       this.loading = true;

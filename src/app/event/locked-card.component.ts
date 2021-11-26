@@ -19,7 +19,7 @@ import { Component, Input } from '@angular/core';
   `,
   styles: [
     `
-      @use '~@angular/material' as mat;
+      @use '@angular/material' as mat;
       @use './src/theme' as *;
 
       .sad {

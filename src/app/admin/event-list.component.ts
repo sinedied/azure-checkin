@@ -129,7 +129,7 @@ export class EventListComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.route.queryParams.pipe().subscribe((params) => {
-      this.showArchived = params.archived === 'true';
+      this.showArchived = params['archived'] === 'true';
       this.loadEvents();
     });
   }
@@ -156,7 +156,7 @@ export class EventListComponent implements OnInit {
 
     try {
       this.events = await this.eventService.getEvents(this.showArchived);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error:', error);
       this.snackBar.open(`Error: ${error && error.message}`);
     }

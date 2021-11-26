@@ -62,10 +62,10 @@ import { EventPatch, EventService, NewEvent } from '../shared/event.service';
                 <mat-label>Event name</mat-label>
                 <input formControlName="name" matInput placeholder="AwesomeConf" (input)="updatePrefix()" />
               </mat-form-field>
-              <mat-form-field *ngIf="this.isNew()" [class.readonly]="!eventForm.controls.editPrefix.value">
+              <mat-form-field *ngIf="this.isNew()" [class.readonly]="!eventForm.controls['editPrefix'].value">
                 <mat-label>Flight nº prefix</mat-label>
                 <input type="text" formControlName="prefix" matInput />
-                <mat-error *ngIf="!eventForm.controls.prefix.valid">Must be 3 lowercase letters</mat-error>
+                <mat-error *ngIf="!eventForm.controls['prefix'].valid">Must be 3 lowercase letters</mat-error>
               </mat-form-field>
               <mat-checkbox *ngIf="this.isNew()" color="primary" formControlName="editPrefix">
                 Customize flight nº prefix
@@ -144,7 +144,7 @@ import { EventPatch, EventService, NewEvent } from '../shared/event.service';
   `,
   styles: [
     `
-      @use '~@angular/material' as mat;
+      @use '@angular/material' as mat;
       @use './src/theme' as *;
 
       .mat-toolbar {
@@ -283,9 +283,9 @@ export class EventEditComponent implements OnInit {
   }
 
   updatePrefix(): void {
-    if (!this.eventForm.controls.editPrefix.value) {
+    if (!this.eventForm.controls['editPrefix'].value) {
       const prefix = this.generatePrefix();
-      this.eventForm.controls.prefix.setValue(prefix);
+      this.eventForm.controls['prefix'].setValue(prefix);
     }
   }
 
@@ -298,7 +298,7 @@ export class EventEditComponent implements OnInit {
 
     try {
       await this.eventService.assignPass(this.id, pass, assign);
-    } catch (error) {
+    } catch (error: any) {
       // Revert in case of failure
       eventPasses[pass] = previousAssignment;
       this.passes = Object.entries(eventPasses);
@@ -316,7 +316,7 @@ export class EventEditComponent implements OnInit {
       event.archived = true;
       event.locked = true;
       await this.eventService.archiveEvent(this.id);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error:', error);
       this.snackBar.open(`Error: ${error && error.message}`);
     }
@@ -330,7 +330,7 @@ export class EventEditComponent implements OnInit {
       this.eventForm.disable();
       event.locked = !event.locked;
       await this.eventService.setEventLock(this.id, event.locked);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error:', error);
       this.snackBar.open(`Error: ${error && error.message}`);
     }
@@ -358,15 +358,15 @@ export class EventEditComponent implements OnInit {
         startDate: this.event.startDate,
         endDate: this.event.endDate,
       });
-      this.eventForm.controls.passes.setValidators(null);
-      this.eventForm.controls.passes.reset();
+      this.eventForm.controls['passes'].setValidators(null);
+      this.eventForm.controls['passes'].reset();
       this.passes = Object.entries(this.event.passes || {});
       this.eventForm.markAsPristine();
 
       if (!this.event.archived && !this.event.locked) {
         this.eventForm.enable();
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error:', error);
       this.snackBar.open(`Error: ${error && error.message}`);
     }
@@ -391,7 +391,7 @@ export class EventEditComponent implements OnInit {
       await this.eventService.createEvent(newEvent);
       this.snackBar.open(`Event ${newEvent.name} successfully created.`);
       this.router.navigate(['/admin']);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error:', error);
       this.snackBar.open(`Error: ${error && error.message}`);
     }
@@ -405,16 +405,16 @@ export class EventEditComponent implements OnInit {
     try {
       const formData = this.eventForm.value;
       const eventPatch: EventPatch = {};
-      if (this.eventForm.controls.name.dirty) {
+      if (this.eventForm.controls['name'].dirty) {
         eventPatch.name = formData.name;
       }
-      if (this.eventForm.controls.startDate.dirty) {
+      if (this.eventForm.controls['startDate'].dirty) {
         eventPatch.startDate = this.dateToUtcString(formData.startDate);
       }
-      if (this.eventForm.controls.endDate.dirty) {
+      if (this.eventForm.controls['endDate'].dirty) {
         eventPatch.endDate = this.dateToUtcString(formData.endDate);
       }
-      if (this.eventForm.controls.passes.dirty && formData.passes) {
+      if (this.eventForm.controls['passes'].dirty && formData.passes) {
         eventPatch.passes = formData.passes
           .split('\n')
           .filter((pass: string) => pass)
@@ -422,7 +422,7 @@ export class EventEditComponent implements OnInit {
       }
       await this.eventService.patchEvent(this.id, eventPatch);
       this.snackBar.open(`Event ${eventPatch.name} successfully updated.`);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error:', error);
       this.snackBar.open(`Error: ${error && error.message}`);
     }
@@ -438,7 +438,7 @@ export class EventEditComponent implements OnInit {
   }
 
   private generatePrefix(): string {
-    const name = this.eventForm.controls.name.value;
+    const name = this.eventForm.controls['name'].value;
     let prefix = '';
 
     if (name) {

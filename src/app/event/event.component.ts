@@ -74,7 +74,7 @@ export class EventComponent implements OnInit {
       if (this.user) {
         await this.getPass();
       }
-    } catch (error) {
+    } catch (error: any) {
       if (error.response?.status === 403) {
         this.locked = true;
         return;
@@ -93,7 +93,7 @@ export class EventComponent implements OnInit {
   private async getPass(): Promise<void> {
     try {
       this.pass = (await this.eventService.getPass(this.id!)).pass;
-    } catch (error) {
+    } catch (error: any) {
       if (error.response?.status === 422) {
         // no more passes available
         this.pass = null;

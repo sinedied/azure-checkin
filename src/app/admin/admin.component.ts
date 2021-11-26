@@ -124,14 +124,14 @@ export class AdminComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.route.queryParams.pipe().subscribe((params) => {
-      this.archived = params.archived === 'true';
+      this.archived = params['archived'] === 'true';
     });
 
     this.loaded = false;
 
     try {
       this.user = await this.userService.getUserInfo();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error:', error);
       this.snackBar.open(`Error: ${error && error.message}`);
     }
