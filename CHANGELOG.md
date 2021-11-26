@@ -1,3 +1,9 @@
+## [1.2.16](https://github.com/sinedied/azure-checkin/compare/1.2.15...1.2.16) (2021-11-26)
+
+### Bug Fixes
+
+- do not rewrite txt files ([e35c8d1](https://github.com/sinedied/azure-checkin/commit/e35c8d182275463b3f4930d8e5d1e655737f63ac))
+
 ## [1.2.15](https://github.com/sinedied/azure-checkin/compare/1.2.14...1.2.15) (2021-11-26)
 
 ## [1.2.14](https://github.com/sinedied/azure-checkin/compare/1.2.13...1.2.14) (2021-10-22)
