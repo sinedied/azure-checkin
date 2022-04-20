@@ -61,3 +61,7 @@ content-type: application/json
   "passes": ["963123", "789123"],
   "locked": false
 }
+
+###
+
+GET http://localhost:7071/api/stats
