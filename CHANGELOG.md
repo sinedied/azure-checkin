@@ -1,3 +1,9 @@
+# [1.3.0](https://github.com/sinedied/azure-checkin/compare/1.2.17...1.3.0) (2022-04-20)
+
+### Features
+
+- add stats api ([4c1fae6](https://github.com/sinedied/azure-checkin/commit/4c1fae672b41da9b1b3f740e92777316e5101489))
+
 ## [1.2.17](https://github.com/sinedied/azure-checkin/compare/1.2.16...1.2.17) (2022-02-28)
 
 ## [1.2.16](https://github.com/sinedied/azure-checkin/compare/1.2.15...1.2.16) (2021-11-26)
