@@ -7,7 +7,7 @@
       "outputLocation": "dist/azure-checkin",
       "appBuildCommand": "npm run build",
       "apiBuildCommand": "npm run build --if-present",
-      "run": "npm start",
+      "run": "npm run serve",
       "devServerUrl": "http://localhost:4200"
     }
   }
