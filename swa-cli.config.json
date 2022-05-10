@@ -1,0 +1,14 @@
+{
+  "$schema": "https://aka.ms/azure/static-web-apps-cli/schema",
+  "configurations": {
+    "azcheck.in": {
+      "appLocation": ".",
+      "apiLocation": "api",
+      "outputLocation": "dist/azure-checkin",
+      "appBuildCommand": "npm run build",
+      "apiBuildCommand": "npm run build --if-present",
+      "run": "npm start",
+      "devServerUrl": "http://localhost:4200"
+    }
+  }
+}
