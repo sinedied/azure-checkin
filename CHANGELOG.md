@@ -1,3 +1,5 @@
+## [1.3.4](https://github.com/sinedied/azure-checkin/compare/1.3.3...1.3.4) (2022-05-23)
+
 ## [1.3.3](https://github.com/sinedied/azure-checkin/compare/1.3.2...1.3.3) (2022-05-20)
 
 ## [1.3.2](https://github.com/sinedied/azure-checkin/compare/1.3.1...1.3.2) (2022-05-10)
