@@ -1,3 +1,9 @@
+## [1.3.5](https://github.com/sinedied/azure-checkin/compare/1.3.4...1.3.5) (2022-05-23)
+
+### Bug Fixes
+
+- admin file ([b1b3c09](https://github.com/sinedied/azure-checkin/commit/b1b3c09c44c379c8949872bc1ac098522b7a8593))
+
 ## [1.3.4](https://github.com/sinedied/azure-checkin/compare/1.3.3...1.3.4) (2022-05-23)
 
 ## [1.3.3](https://github.com/sinedied/azure-checkin/compare/1.3.2...1.3.3) (2022-05-20)
