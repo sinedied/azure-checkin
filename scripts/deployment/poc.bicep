@@ -179,7 +179,7 @@ resource cosmosDbDatabase 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@20
   }
 }
 
-resource staticWebApp 'Microsoft.Web/staticSites@2021-01-15' = {
+resource staticWebApp 'Microsoft.Web/staticSites@2021-03-01' = {
   name: '${appName}-staticwebapp${dashSuffix}'
   location: location
   tags: commonTags
@@ -201,16 +201,16 @@ resource staticWebApp 'Microsoft.Web/staticSites@2021-01-15' = {
     }
     stagingEnvironmentPolicy: 'Enabled'
     allowConfigFileUpdates: true
-    userProvidedFunctionApps: [
-      {
-          functionAppResourceId: functionApp.id
-          functionAppRegion: location
-      }
-    ]
   }
-  dependsOn: [
-    functionApp
-  ]
+
+  resource staticWebAppBackend 'linkedBackends@2022-03-01' = {
+    name: '${appName}-staticwebapp-backend${dashSuffix}'
+    tags: commonTags
+    properties: {
+      backendResourceId: functionApp.id
+      region: location
+    }
+  }
 
   // resource staticWebAppSettings 'config@2021-01-15' = {
   //   name: 'appsettings'
@@ -243,9 +243,6 @@ resource dnsZones 'Microsoft.Network/dnszones@2018-05-01' = if (prod == false) {
         cname: staticWebApp.properties.defaultHostname
       }
     }
-    dependsOn: [
-      staticWebApp
-    ]
   }
   
   // resource dnsZonesDomain 'NS@2018-05-01' = {
@@ -308,9 +305,6 @@ resource dnsZones 'Microsoft.Network/dnszones@2018-05-01' = if (prod == false) {
         id: staticWebApp.id
       }
     }
-    dependsOn: [
-      staticWebApp
-    ]
   }
 }
 
