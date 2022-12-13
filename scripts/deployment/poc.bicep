@@ -179,7 +179,7 @@ resource cosmosDbDatabase 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@20
   }
 }
 
-resource staticWebApp 'Microsoft.Web/staticSites@2021-03-01' = {
+resource staticWebApp 'Microsoft.Web/staticSites@2022-03-01' = {
   name: '${appName}-staticwebapp${dashSuffix}'
   location: location
   tags: commonTags
@@ -205,7 +205,6 @@ resource staticWebApp 'Microsoft.Web/staticSites@2021-03-01' = {
 
   resource staticWebAppBackend 'linkedBackends@2022-03-01' = {
     name: '${appName}-staticwebapp-backend${dashSuffix}'
-    tags: commonTags
     properties: {
       backendResourceId: functionApp.id
       region: location
