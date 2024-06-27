@@ -18,7 +18,7 @@
       "value": "${AZURE_PRINCIPAL_ID}"
     },
     "domainName": {
-      "value": "${DOMAIN_NAME}=azcheck.in"
+      "value": "${DOMAIN_NAME=azcheck.in}"
     },
     "useVnet": {
       "value": "${USE_VNET=false}"
