@@ -2,7 +2,7 @@
 
 name: azure-checkin
 metadata:
-  template: azure-checkin@1.0.0
+  template: azure-checkin
 
 services:
   webapp:
