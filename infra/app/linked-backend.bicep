@@ -1,20 +1,16 @@
 param staticWebAppName string
-param functionAppName string
-param functionAppLocation string
+param backendResourceId string
+param backendLocation string
 
-resource staticWebApp 'Microsoft.Web/staticSites@2022-03-01' existing = {
+resource staticWebApp 'Microsoft.Web/staticSites@2023-12-01' existing = {
   name: staticWebAppName
 }
 
-resource functionApp 'Microsoft.Web/sites@2022-03-01' existing = {
-  name: functionAppName
-}
-
-resource linkedStaticWebAppBackend 'Microsoft.Web/staticSites/linkedBackends@2022-03-01' = {
+resource linkedStaticWebAppBackend 'Microsoft.Web/staticSites/linkedBackends@2023-12-01' = {
   parent: staticWebApp
   name: 'linkedBackend'
   properties: {
-    backendResourceId: functionApp.id
-    region: functionAppLocation
+    backendResourceId: backendResourceId
+    region: backendLocation
   }
 }

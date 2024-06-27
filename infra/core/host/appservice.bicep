@@ -62,7 +62,7 @@ resource appService 'Microsoft.Web/sites@2022-03-01' = {
     }
     clientAffinityEnabled: clientAffinityEnabled
     httpsOnly: true
-    virtualNetworkSubnetId: virtualNetworkSubnetId
+    virtualNetworkSubnetId: !empty(virtualNetworkSubnetId) ? virtualNetworkSubnetId : null
   }
 
   identity: { type: managedIdentity ? 'SystemAssigned' : 'None' }
@@ -120,6 +120,7 @@ resource applicationInsights 'Microsoft.Insights/components@2020-02-02' existing
   name: applicationInsightsName
 }
 
+output id string = appService.id
 output identityPrincipalId string = managedIdentity ? appService.identity.principalId : ''
 output name string = appService.name
 output uri string = 'https://${appService.properties.defaultHostName}'

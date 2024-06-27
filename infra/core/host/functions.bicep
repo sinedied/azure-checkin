@@ -7,8 +7,10 @@ param tags object = {}
 param applicationInsightsName string = ''
 param appServicePlanId string
 param keyVaultName string = ''
-param managedIdentity bool = !empty(keyVaultName)
+param managedIdentity bool = !empty(keyVaultName) || storageManagedIdentity
 param storageAccountName string
+param storageManagedIdentity bool = false
+param virtualNetworkSubnetId string = ''
 
 // Runtime Properties
 @allowed([
@@ -42,7 +44,6 @@ param numberOfWorkers int = -1
 param scmDoBuildDuringDeployment bool = true
 param use32BitWorkerProcess bool = false
 param healthCheckPath string = ''
-param virtualNetworkSubnetId string = ''
 
 module functions 'appservice.bicep' = {
   name: '${name}-functions'
@@ -56,7 +57,8 @@ module functions 'appservice.bicep' = {
     applicationInsightsName: applicationInsightsName
     appServicePlanId: appServicePlanId
     appSettings: union(appSettings, {
-        AzureWebJobsStorage: 'DefaultEndpointsProtocol=https;AccountName=${storage.name};AccountKey=${storage.listKeys().keys[0].value};EndpointSuffix=${environment().suffixes.storage}'
+        AzureWebJobsStorage__accountName: storageManagedIdentity ? storage.name : null
+        AzureWebJobsStorage: storageManagedIdentity ? null : 'DefaultEndpointsProtocol=https;AccountName=${storage.name};AccountKey=${storage.listKeys().keys[0].value};EndpointSuffix=${environment().suffixes.storage}'
         FUNCTIONS_EXTENSION_VERSION: extensionVersion
         FUNCTIONS_WORKER_RUNTIME: runtimeName
       })
@@ -79,10 +81,21 @@ module functions 'appservice.bicep' = {
   }
 }
 
+module storageOwnerRole '../../core/security/role.bicep' = if (storageManagedIdentity) {
+  name: 'search-index-contrib-role-api'
+  params: {
+    principalId: functions.outputs.identityPrincipalId
+    // Storage Blob Data Contributor
+    roleDefinitionId: 'ba92f5b4-2d11-453d-a403-e96b0029c9fe'
+    principalType: 'ServicePrincipal'
+  }
+}
+
 resource storage 'Microsoft.Storage/storageAccounts@2021-09-01' existing = {
   name: storageAccountName
 }
 
+output id string = functions.outputs.id
 output identityPrincipalId string = managedIdentity ? functions.outputs.identityPrincipalId : ''
 output name string = functions.outputs.name
 output uri string = functions.outputs.uri

@@ -1,21 +1,50 @@
-@description('Specifies the name of the function app.')
+@description('Specifies the name of the virtual network.')
 param name string
 
 @description('Specifies the location.')
 param location string = resourceGroup().location
 
-param appServicePlanId string
-param storageAccountName string
-param applicationInsightsInstrumentationKey string
-param applicationInsightsConnectionString string
-@secure()
-param CosmosDBConnectionString string
-param CosmosDBDatabaseName string
-param virtualNetworkSubnetId string = ''
-param allowedOrigins array = []
 param tags object = {}
 
-module api '../core/host/functions.bicep' = {
+param appServicePlanId string
+param storageAccountName string
+param virtualNetworkSubnetId string
+param applicationInsightsName string
+param applicationInsightsInstrumentationKey string
+param allowedOrigins array
+param keyVaultName string
+param staticWebAppName string = ''
+
+@secure()
+param cosmosDbConnectionString string
+
+var useVnet = !empty(virtualNetworkSubnetId)
+var finalApi = useVnet ? apiFlex : api
+
+module apiFlex '../core/host/functions-flex.bicep' = if (useVnet) {
+  name: 'api-flex'
+  scope: resourceGroup()
+  params: {
+    name: name
+    location: location
+    tags: tags
+    allowedOrigins: allowedOrigins
+    runtimeName: 'node'
+    runtimeVersion: '20'
+    appServicePlanId: appServicePlanId
+    storageAccountName: storageAccountName
+    keyVaultName: keyVaultName
+    applicationInsightsName: applicationInsightsName
+    virtualNetworkSubnetId: virtualNetworkSubnetId
+    alwaysOn: false
+    appSettings: {
+      APPINSIGHTS_INSTRUMENTATIONKEY: applicationInsightsInstrumentationKey
+      COSMOSDB_CONNECTION_STRING: cosmosDbConnectionString
+    }
+  }
+}
+
+module api '../core/host/functions.bicep' = if (!useVnet) {
   name: 'api'
   scope: resourceGroup()
   params: {
@@ -27,19 +56,29 @@ module api '../core/host/functions.bicep' = {
     runtimeVersion: '20'
     appServicePlanId: appServicePlanId
     storageAccountName: storageAccountName
+    keyVaultName: keyVaultName
+    applicationInsightsName: applicationInsightsName
     managedIdentity: true
-    // instanceMemoryMB: 2048
-    // maximumInstanceCount: 10
-    virtualNetworkSubnetId: virtualNetworkSubnetId
+    storageManagedIdentity: false
+    alwaysOn: false
     appSettings: {
       APPINSIGHTS_INSTRUMENTATIONKEY: applicationInsightsInstrumentationKey
-      APPLICATIONINSIGHTS_CONNECTION_STRING: applicationInsightsConnectionString
-      CosmosDBConnectionString: CosmosDBConnectionString
-      CosmosDBDatabaseName: CosmosDBDatabaseName
+      COSMOSDB_CONNECTION_STRING: cosmosDbConnectionString
     }
   }
 }
 
-output name string = api.outputs.name
-output uri string = api.outputs.uri
-output identityPrincipalId string = api.outputs.identityPrincipalId
+// Link the Function App to the Static Web App
+module linkedBackend './linked-backend.bicep' = if (!empty(staticWebAppName)) {
+  name: 'linkedbackend'
+  scope: resourceGroup()
+  params: {
+    staticWebAppName: staticWebAppName
+    backendResourceId: finalApi.outputs.id
+    backendLocation: location
+  }
+}
+
+output identityPrincipalId string = finalApi.outputs.identityPrincipalId
+output name string = finalApi.outputs.name
+output uri string = finalApi.outputs.uri

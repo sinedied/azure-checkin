@@ -42,6 +42,14 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2023-05-01' = {
               type: 'Microsoft.Network/virtualNetworks/subnets/delegations'
             }
           ]
+          serviceEndpoints: [
+            {
+              service: 'Microsoft.Storage'
+              locations: [
+                resourceGroup().location
+              ]
+            }
+          ]
           privateEndpointNetworkPolicies: 'Disabled'
           privateLinkServiceNetworkPolicies: 'Enabled'
         }
