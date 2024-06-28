@@ -39,7 +39,7 @@
     "@angular-eslint/template-parser": "13.2.1",
     "@angular/cli": "^13.2.5",
     "@angular/compiler-cli": "~13.3.6",
-    "@azure/static-web-apps-cli": "^0.8.2",
+    "@azure/static-web-apps-cli": "^1.1.10",
     "@ngx-rocket/scripts": "^5.2.1",
     "@types/node": "^14.18.12",
     "@typescript-eslint/eslint-plugin": "^5.23.0",
