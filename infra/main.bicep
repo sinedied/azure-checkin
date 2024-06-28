@@ -87,6 +87,7 @@ module api './app/api.bicep' = {
     applicationInsightsName: monitoring.outputs.applicationInsightsName
     virtualNetworkSubnetId: useVnet ? vnet.outputs.appSubnetID : ''
     cosmosDbConnectionString: kv.getSecret(cosmosDb.outputs.connectionStringKey)
+    cosmosDBDatabaseName: cosmosDb.outputs.databaseName
     staticWebAppName: webapp.outputs.name
   }
 }

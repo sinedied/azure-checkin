@@ -17,6 +17,7 @@ param staticWebAppName string = ''
 
 @secure()
 param cosmosDbConnectionString string
+param cosmosDBDatabaseName string
 
 var useVnet = !empty(virtualNetworkSubnetId)
 var finalApi = useVnet ? apiFlex : api
@@ -39,7 +40,8 @@ module apiFlex '../core/host/functions-flex.bicep' = if (useVnet) {
     alwaysOn: false
     appSettings: {
       APPINSIGHTS_INSTRUMENTATIONKEY: applicationInsightsInstrumentationKey
-      COSMOSDB_CONNECTION_STRING: cosmosDbConnectionString
+      CosmosDBConnectionString: cosmosDbConnectionString
+      CosmosDBDatabaseName: cosmosDBDatabaseName
     }
   }
 }
@@ -63,7 +65,8 @@ module api '../core/host/functions.bicep' = if (!useVnet) {
     alwaysOn: false
     appSettings: {
       APPINSIGHTS_INSTRUMENTATIONKEY: applicationInsightsInstrumentationKey
-      COSMOSDB_CONNECTION_STRING: cosmosDbConnectionString
+      CosmosDBConnectionString: cosmosDbConnectionString
+      CosmosDBDatabaseName: cosmosDBDatabaseName
     }
   }
 }
