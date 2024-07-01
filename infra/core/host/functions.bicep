@@ -57,10 +57,12 @@ module functions 'appservice.bicep' = {
     applicationInsightsName: applicationInsightsName
     appServicePlanId: appServicePlanId
     appSettings: union(appSettings, {
-        AzureWebJobsStorage__accountName: storageManagedIdentity ? storage.name : null
-        AzureWebJobsStorage: storageManagedIdentity ? null : 'DefaultEndpointsProtocol=https;AccountName=${storage.name};AccountKey=${storage.listKeys().keys[0].value};EndpointSuffix=${environment().suffixes.storage}'
         FUNCTIONS_EXTENSION_VERSION: extensionVersion
         FUNCTIONS_WORKER_RUNTIME: runtimeName
+      }, storageManagedIdentity ? {
+        AzureWebJobsStorage__accountName: storage.name
+      } : {
+        AzureWebJobsStorage: 'DefaultEndpointsProtocol=https;AccountName=${storage.name};AccountKey=${storage.listKeys().keys[0].value};EndpointSuffix=${environment().suffixes.storage}'
       })
     clientAffinityEnabled: clientAffinityEnabled
     enableOryxBuild: enableOryxBuild
