@@ -166,12 +166,12 @@ module cosmosDb './core/database/cosmos/sql/cosmos-sql-db.bicep' = {
         partitionKey: '/id'
       }
     ]
-    databaseName: 'events'
+    databaseName: 'azcheckindb'
     keyVaultName: keyvault.outputs.name
   }
 }
 
-module vnet './app/vnet.bicep' = {
+module vnet './app/vnet.bicep' = if (useVnet) {
   name: 'vnet'
   scope: resourceGroup
   params: {
