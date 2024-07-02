@@ -1,3 +1,17 @@
+# [1.4.0](https://github.com/sinedied/azure-checkin/compare/1.3.7...1.4.0) (2024-07-02)
+
+### Bug Fixes
+
+- extra vnet ([431544d](https://github.com/sinedied/azure-checkin/commit/431544d05432cb90c0f397beaa95fd80bf9db3b7))
+- infra ([ecd1ea3](https://github.com/sinedied/azure-checkin/commit/ecd1ea3f0195a014fcba2b7d3b9e7d42f0e44cd3))
+- infra env vars ([834e3fe](https://github.com/sinedied/azure-checkin/commit/834e3fe81be6a8f64ae4fe0206032bf3741b8a92))
+- param ([2f11400](https://github.com/sinedied/azure-checkin/commit/2f11400bcce695ed583a41ec1a6df7dec9880fbe))
+
+### Features
+
+- implement storage managed identity and vnet ([ba9a979](https://github.com/sinedied/azure-checkin/commit/ba9a9793a8288fcc0614eae8f1fefb62dffa4b33))
+- initial azd support ([4b51fee](https://github.com/sinedied/azure-checkin/commit/4b51feeb6efc7b08d59e41f0012a04ff2c79fac3))
+
 ## [1.3.7](https://github.com/sinedied/azure-checkin/compare/1.3.6...1.3.7) (2024-07-02)
 
 ## [1.3.6](https://github.com/sinedied/azure-checkin/compare/1.3.5...1.3.6) (2022-12-13)
