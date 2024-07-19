@@ -10,17 +10,17 @@ env:
   AZURE_FUNCTIONAPP_PACKAGE_PATH: './api'
   AZURE_STATICWEBAPP_SOURCE_PATH: '/'
   AZURE_STATICWEBAPP_OUTPUT_PATH: 'dist/azure-checkin'
-  NODE_VERSION: '18.x'
+  NODE_VERSION: '20.x'
 
 jobs:
   build_and_deploy_job:
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: true
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
       - run: npm ci
@@ -30,7 +30,7 @@ jobs:
         if: success() && github.ref == 'refs/heads/main'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: Azure/functions-action@v1.5.1
+      - uses: Azure/functions-action@v1
         with:
           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
